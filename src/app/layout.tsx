@@ -5,7 +5,7 @@ import ReactQueryProviders from "@utils/ReactQueryProviders"
 import { Stack } from "@src/utils/StackFlowRegistry"
 import "@stackflow/plugin-basic-ui/index.css"
 
-export default function RootLayout({}: Readonly<{
+export default function RootLayout({ }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
