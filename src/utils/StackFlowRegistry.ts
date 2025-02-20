@@ -6,15 +6,14 @@ import { historySyncPlugin } from "@stackflow/plugin-history-sync"
 import { stackflow } from "@stackflow/react"
 import HomeActivity from "@src/activities/home/HomeActivity"
 import FridgeActivity from "@src/activities/home/fridge/FridgeActivity"
-import InitActivity from "@src/activities/InitActivity"
+import RecipeActivity from "@src/activities/home/recipes/RecipeActivity"
 
 export const { Stack, useFlow } = stackflow({
   transitionDuration: 350,
   activities: {
-    InitActivity,
     HomeActivity,
     FridgeActivity,
-    
+    RecipeActivity,
   },
 
   plugins: [
@@ -23,9 +22,9 @@ export const { Stack, useFlow } = stackflow({
 
     historySyncPlugin({
       routes: {
-        InitActivity: "/",
         HomeActivity: "/home",
         FridgeActivity: "/home/fridge",
+        RecipeActivity: "/home/recipes",
       },
       fallbackActivity: () => "HomeActivity",
     }),

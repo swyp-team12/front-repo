@@ -67,27 +67,45 @@ const variants = {
 }
 const colors = {
   primary: "#FB7B0D",
-  alert: "#FF0000",
-  success: "#00FF00",
-  warning: "#FFFF00",
-  info: "#0000FF",
-  dark: "#000000",
-  light: "#FFFFFF",
-  gray: "#808080",
+  secondary: "#FBA80E",
+  tertiary: "#FFDB9A",
+  quaternary: "#FFFAF2",
+  black: "#000000",
+  white: "#FFFFFF",
+  ["gray-100"]: "#EDF0F2",
+  ["gray-200"]: "#EDEDED",
+  ["gray-300"]: "#DADADA",
+  ["gray-400"]: "#C5C5C5",
+  ["gray-500"]: "#AEAEAE",
+  ["gray-600"]: "#929292",
+  ["gray-700"]: "#727272",
+  ["gray-800"]: "#4D4D4D",
+  ["gray-900"]: "#272727",
 }
+
 const spaces = {
   0: "0px",
+  2: "2px",
   4: "4px",
+  6: "6px",
   8: "8px",
+  10: "10px",
   12: "12px",
+  14: "14px",
   16: "16px",
   18: "18px",
   20: "20px",
+  22: "22px",
   24: "24px",
+  26: "26px",
   28: "28px",
+  30: "30px",
   32: "32px",
+  34: "34px",
   36: "36px",
+  38: "38px",
   40: "40px",
+  42: "42px",
   44: "44px",
   48: "48px",
   52: "52px",
@@ -98,21 +116,7 @@ const spaces = {
 
 export type ColorsType = keyof typeof colors
 
-export type VariantsType =
-  | "title"
-  | "head-b"
-  | "head-m"
-  | "head-r"
-  | "body-b"
-  | "body-m"
-  | "body-r"
-  | "label-b"
-  | "label-m"
-  | "label-r"
-  | "text-b"
-  | "text-m"
-  | "text-r"
-
+export type VariantsType = keyof typeof variants
 export type SpacesType = keyof typeof spaces
 
 const theme = {
