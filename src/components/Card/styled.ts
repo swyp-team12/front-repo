@@ -1,8 +1,16 @@
 import styled from "styled-components"
 
+export const CardContainers = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 3.15px 4.2px 14.69px 0px #0000001f;
+`
+
 export const CardContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
-  padding: 12px 16px;
-  border-radius: 8px;
-  box-shadow: 3.15px 4.2px 14.69px 0px #0000001f;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eeeeee;
 `

@@ -1,7 +1,7 @@
 import { AppScreen } from "@stackflow/plugin-basic-ui"
 import Navigation from "../Navigation/Navigation"
-import VStack from "../FlexBoxGroup/VStack"
 import Svg from "../Svg/Svg"
+import { ContentContainer } from "./styled"
 
 interface IconWithSettingHeaderProps {
   children: React.ReactNode
@@ -26,7 +26,7 @@ const IconWithSettingHeader = ({
         height: "48px",
       }}
     >
-      <VStack pb={16}>{children}</VStack>
+      <ContentContainer>{children}</ContentContainer>
       {hasNavigation && <Navigation />}
     </AppScreen>
   )

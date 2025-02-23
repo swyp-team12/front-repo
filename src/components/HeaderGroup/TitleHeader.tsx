@@ -1,7 +1,6 @@
 import { AppScreen } from "@stackflow/plugin-basic-ui"
 import Navigation from "../Navigation/Navigation"
-import VStack from "../FlexBoxGroup/VStack"
-import SearchBar from "../SearchBar/SearchBar"
+import { ContentContainer } from "./styled"
 
 interface TitleHeaderProps {
   children: React.ReactNode
@@ -19,11 +18,10 @@ const TitleHeader = ({
       appBar={{
         title: title,
         height: "48px",
+        border: false,
       }}
     >
-      <VStack pt={16} pb={16}>
-        {children}
-      </VStack>
+      <ContentContainer>{children}</ContentContainer>
       {hasNavigation && <Navigation />}
     </AppScreen>
   )

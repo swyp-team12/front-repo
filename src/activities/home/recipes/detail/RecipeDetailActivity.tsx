@@ -21,7 +21,7 @@ import { mockRecipes } from "@src/mocks/mockApiData"
 
 const mockRecentSearches = ["치즈", "양배추", "양배추"]
 
-const RecipeActivity: ActivityComponentType = () => {
+const RecipeDetailActivity: ActivityComponentType = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const handleDeleteSearch = (search: string) => {
@@ -77,4 +77,4 @@ const RecipeActivity: ActivityComponentType = () => {
   )
 }
 
-export default RecipeActivity
+export default RecipeDetailActivity

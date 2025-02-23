@@ -2,7 +2,7 @@ import { ButtonContainer, StyledTypography } from "./styled"
 
 interface ButtonProps {
   size: "lg" | "sm" | "xs"
-  variant: "primary" | "secondary"
+  variant: "primary" | "secondary" | "kakao"
   label: string
   disabled?: boolean
   onClick?: () => void
