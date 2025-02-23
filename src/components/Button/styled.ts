@@ -3,7 +3,7 @@ import Typography from "../Typography/Typograpy"
 
 interface ButtonContainerProps {
   $size: "lg" | "sm" | "xs"
-  $variants: "primary" | "secondary"
+  $variants: "primary" | "secondary" | "kakao"
   $disabled: boolean
 }
 
@@ -31,6 +31,10 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
       ? css`
           background-color: ${theme.colors.primary};
         `
+      : $variants === "kakao"
+      ? css`
+          background-color: ${theme.colors["kakao-main"]};
+        `
       : css`
           background-color: ${theme.colors["gray-100"]};
         `
@@ -43,6 +47,8 @@ export const StyledTypography = styled(Typography).attrs<ButtonContainerProps>(
       ? "gray-600"
       : props.$variants === "secondary"
       ? "black"
+      : props.$variants === "kakao"
+      ? "kakao-logo"
       : "white",
     variant: props.$size === "lg" ? "body-b" : "label-b",
   })

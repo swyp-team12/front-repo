@@ -69,9 +69,13 @@ const colors = {
   primary: "#FB7B0D",
   secondary: "#FBA80E",
   tertiary: "#FFDB9A",
-  quaternary: "#FFFAF2",
+  quaternary: "#FFF0D8",
+  quinary: "#FFFAF2",
   black: "#000000",
   white: "#FFFFFF",
+  lightGray: "#F7F9FA",
+  ["kakao-main"]: "#FEE500",
+  ["kakao-logo"]: "#191919",
   ["gray-100"]: "#EDF0F2",
   ["gray-200"]: "#EDEDED",
   ["gray-300"]: "#DADADA",
@@ -115,7 +119,6 @@ const spaces = {
 }
 
 export type ColorsType = keyof typeof colors
-
 export type VariantsType = keyof typeof variants
 export type SpacesType = keyof typeof spaces
 

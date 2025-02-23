@@ -17,50 +17,44 @@ import {
   mockRefrigeratedItems,
   mockFrozenItems,
 } from "@src/mocks/mockData"
+import HomeRecipeMenuCard from "./HomeRecipeMenuCard"
+import RecipeList from "@src/components/RecipeList/RecipeList"
+import { mockRecipes } from "@src/mocks/mockApiData"
+interface HomeRecipeViewProps {}
 
-interface HomeFridgeViewProps {}
-
-const HomeFridgeView = ({}: HomeFridgeViewProps) => {
+const HomeRecipeView = ({}: HomeRecipeViewProps) => {
   const { push } = useFlow()
 
-  const handleExpiredMoreClick = () => {
-    console.log("유통기한 임박 더보기")
+  const handleRecipeClick = () => {
+    push("RecipeActivity", {})
   }
 
-  const handleFridgeMoreClick = () => {
-    push("FridgeActivity", {})
-  }
   return (
     <VStack gap={24} pt={24} pl={20} pr={20}>
       <VStack gap={16}>
         <TitleWithMore
-          title="유통기한 임박 ⚠"
-          onClickMore={handleExpiredMoreClick}
+          title="회원님을 위한 레시피 추천 🧑🏻‍🍳"
+          onClickMore={() => {}}
         />
-        <HomeExpiredCard
-          ingredients={mockExpireIngredients}
-          onClickMore={handleExpiredMoreClick}
-        />
+        <HomeRecipeMenuCard />
       </VStack>
 
       <VStack gap={16}>
         <TitleWithMore
-          title="우리집 냉장고"
-          onClickMore={handleFridgeMoreClick}
+          title="이전에 맛본 레시피 모음 🥦"
+          onClickMore={handleRecipeClick}
         />
+
         <VStack gap={14}>
           <HStack gap={4}>
-            <SearchBar placeholder="냉장고 안의 재료를 검색해보세요." />
-            <Button variant="primary" size="xs" label="추가" />
+            <SearchBar placeholder="이전에 사용한 레시피 재료를 검색해보세요." />
+            <Button variant="primary" size="xs" label="검색" />
           </HStack>
-          <FridgeList
-            refrigeratedItems={mockRefrigeratedItems}
-            frozenItems={mockFrozenItems}
-          />
+          <RecipeList recipes={mockRecipes} />
         </VStack>
       </VStack>
     </VStack>
   )
 }
 
-export default HomeFridgeView
+export default HomeRecipeView
