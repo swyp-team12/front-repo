@@ -1,4 +1,3 @@
-
 import { ColorsType, SpacesType } from "@src/styles/commonTheme"
 import { FlexBoxContainer } from "./styled"
 
@@ -32,8 +31,21 @@ export interface FlexBoxProps {
   onClick?: () => void
 }
 
-const FlexBox = ({ children, ...props }: FlexBoxProps) => {
-  return <FlexBoxContainer {...props}>{children}</FlexBoxContainer>
+const FlexBox = ({
+  children,
+  justifyContent,
+  alignItems,
+  ...props
+}: FlexBoxProps) => {
+  return (
+    <FlexBoxContainer
+      {...props}
+      $justifyContent={justifyContent}
+      $alignItems={alignItems}
+    >
+      {children}
+    </FlexBoxContainer>
+  )
 }
 
 export default FlexBox

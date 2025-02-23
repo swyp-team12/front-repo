@@ -184,7 +184,12 @@ const RecipeDetailActivity: ActivityComponentType<
             </Typography>
           </VStack>
           <HStack gap={12}>
-            <Button variant="secondary" size="sm" label="취소" />
+            <Button
+              variant="secondary"
+              size="sm"
+              label="취소"
+              onClick={() => setIsModalOpen(false)}
+            />
             <Button variant="primary" size="sm" label="확인" />
           </HStack>
         </VStack>

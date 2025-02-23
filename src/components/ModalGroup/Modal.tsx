@@ -11,7 +11,7 @@ interface ModalProps {
   children: React.ReactNode
 }
 
-const Overlay = styled.div<{ isVisible: boolean }>`
+const Overlay = styled.div<{ $isVisible: boolean }>`
   position: fixed;
   top: 0;
   left: 50%;
@@ -20,22 +20,22 @@ const Overlay = styled.div<{ isVisible: boolean }>`
   height: 100%;
   background: rgba(146, 146, 146, 0.4);
   z-index: 1000;
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
   transition: opacity 0.2s ease, visibility 0.2s ease;
-  pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
+  pointer-events: ${({ $isVisible }) => ($isVisible ? "auto" : "none")};
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-const ModalContainer = styled.div<{ isVisible: boolean }>`
+const ModalContainer = styled.div<{ $isVisible: boolean }>`
   width: 340px;
   background: white;
   border-radius: 10px;
   z-index: 1001;
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  transform: scale(${({ isVisible }) => (isVisible ? 1 : 0.8)});
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transform: scale(${({ $isVisible }) => ($isVisible ? 1 : 0.8)});
   transition: opacity 0.2s ease, transform 0.2s ease;
 `
 
@@ -67,8 +67,8 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   if (!portalContainer) return null
 
   return createPortal(
-    <Overlay isVisible={isOpen} onClick={onClose}>
-      <ModalContainer isVisible={isOpen} onClick={(e) => e.stopPropagation()}>
+    <Overlay $isVisible={isOpen} onClick={onClose}>
+      <ModalContainer $isVisible={isOpen} onClick={(e) => e.stopPropagation()}>
         <VStack p="20px" alignItems="center">
           {title && (
             <VStack pb={8}>

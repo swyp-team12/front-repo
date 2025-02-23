@@ -1,4 +1,3 @@
-
 import { VStackContainer } from "./styled"
 import { FlexBoxProps } from "./FlexBox"
 import { SpacesType } from "@src/styles/commonTheme"
