@@ -4,12 +4,27 @@ import VStack from "@src/components/FlexBoxGroup/VStack"
 import Typography from "@src/components/Typography/Typograpy"
 import Svg from "@src/components/Svg/Svg"
 import { MenuButton, Divider } from "./styled"
+import { useFlow } from "@src/utils/StackFlowRegistry"
 
 const HomeRecipeMenuCard = () => {
+  const { push } = useFlow()
+
+  const handleChooseRecipeClick = () => {
+    push("RecipeChooseActivity", {})
+  }
+
+  const handleExistRecipeClick = () => {
+    push("RecipeLoadingActivity", {})
+  }
+
+  const handleNewRecipeClick = () => {
+    push("RecipeLoadingActivity", {})
+  }
+
   return (
     <Card>
       <HStack justifyContent="space-between" p="12px 0px">
-        <MenuButton onClick={() => console.log("home clicked")}>
+        <MenuButton onClick={handleExistRecipeClick}>
           <Svg
             src="/icon/img_home.svg"
             width={32}
@@ -28,7 +43,7 @@ const HomeRecipeMenuCard = () => {
 
         <Divider />
 
-        <MenuButton onClick={() => console.log("light clicked")}>
+        <MenuButton onClick={handleNewRecipeClick}>
           <Svg
             src="/icon/img_light.svg"
             width={32}
@@ -47,7 +62,7 @@ const HomeRecipeMenuCard = () => {
 
         <Divider />
 
-        <MenuButton onClick={() => console.log("click clicked")}>
+        <MenuButton onClick={handleChooseRecipeClick}>
           <Svg
             src="/icon/img_click.svg"
             width={32}

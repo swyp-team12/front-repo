@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 export const IconCardContainers = styled.div`
   width: 60px;
@@ -11,7 +11,7 @@ export const IconCardContainers = styled.div`
   box-shadow: 3.15px 4.2px 14.69px 0px #0000001f;
 `
 
-export const IconCardContainer = styled.div`
+export const IconCardContainer = styled.div<{ selected?: boolean }>`
   width: 60px;
   height: 60px;
   background-color: ${({ theme }) => theme.colors.white};
@@ -21,4 +21,9 @@ export const IconCardContainer = styled.div`
   justify-content: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid #eeeeee;
+  ${({ selected }) =>
+    selected &&
+    css`
+      border: 1.33px solid ${({ theme }) => theme.colors.primary};
+    `}
 `

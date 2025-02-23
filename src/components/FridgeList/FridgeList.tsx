@@ -5,17 +5,33 @@ import Typography from "@src/components/Typography/Typograpy"
 import Svg from "@src/components/Svg/Svg"
 import IconCard from "@src/components/IconCard/IconCard"
 import styled from "styled-components"
+import { useFlow } from "@src/utils/StackFlowRegistry"
+import { useEffect } from "react"
 
-interface FridgeListProps {
+interface BaseFridgeListProps {
   refrigeratedItems: {
+    id: string
     name: string
     category: string
   }[]
   frozenItems: {
+    id: string
     name: string
     category: string
   }[]
 }
+
+interface SelectFridgeListProps extends BaseFridgeListProps {
+  type: "select"
+  selectedIds: string[]
+  onSelect: (id: string) => void
+}
+
+interface ViewFridgeListProps extends BaseFridgeListProps {
+  type?: "view"
+}
+
+type FridgeListProps = SelectFridgeListProps | ViewFridgeListProps
 
 const GridContainer = styled.div`
   display: grid;
@@ -30,7 +46,23 @@ const truncateName = (name: string) => {
   return name.length > 4 ? name.slice(0, 3) + "..." : name
 }
 
-const FridgeList = ({ refrigeratedItems, frozenItems }: FridgeListProps) => {
+const FridgeList = ({
+  refrigeratedItems,
+  frozenItems,
+  type = "view",
+  ...props
+}: FridgeListProps) => {
+  const { push } = useFlow()
+
+  const handleItemClick = (id: string) => {
+    if (type === "select" && "onSelect" in props) {
+      props.onSelect(id)
+    } else {
+      // 뷰 타입일 경우 아이템 상세 페이지로 이동
+      push("HomeActivity", {})
+    }
+  }
+
   return (
     <VStack gap={24}>
       <Card>
@@ -41,7 +73,14 @@ const FridgeList = ({ refrigeratedItems, frozenItems }: FridgeListProps) => {
           <GridContainer>
             {refrigeratedItems.map((item) => (
               <VStack key={item.name} alignItems="center" gap={4}>
-                <IconCard>
+                <IconCard
+                  onClick={() => handleItemClick(item.id)}
+                  selected={
+                    type === "select" && "selectedIds" in props
+                      ? props.selectedIds.includes(item.id)
+                      : false
+                  }
+                >
                   <VStack alignItems="center" justifyContent="center" gap={4}>
                     <Svg
                       src={`/icon/category/icon_${item.category}.svg`}
@@ -68,7 +107,14 @@ const FridgeList = ({ refrigeratedItems, frozenItems }: FridgeListProps) => {
           <GridContainer>
             {frozenItems.map((item) => (
               <VStack key={item.name} alignItems="center" gap={4}>
-                <IconCard>
+                <IconCard
+                  onClick={() => handleItemClick(item.id)}
+                  selected={
+                    type === "select" && "selectedIds" in props
+                      ? props.selectedIds.includes(item.id)
+                      : false
+                  }
+                >
                   <VStack alignItems="center" justifyContent="center" gap={4}>
                     <Svg
                       src={`/icon/category/icon_${item.category}.svg`}

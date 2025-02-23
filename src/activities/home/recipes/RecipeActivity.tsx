@@ -45,9 +45,9 @@ const RecipeActivity: ActivityComponentType = () => {
             최근 검색
           </Typography>
           <HStack gap={8}>
-            {mockRecentSearches.map((search) => (
+            {mockRecentSearches.map((search, idx) => (
               <SearchTag
-                key={search}
+                key={idx}
                 label={search}
                 onDelete={() => handleDeleteSearch(search)}
               />

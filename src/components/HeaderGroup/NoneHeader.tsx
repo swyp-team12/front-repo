@@ -4,7 +4,6 @@ import { ContentContainer } from "./styled"
 
 interface NoneHeaderProps {
   children: React.ReactNode
-  title: string
   hasNavigation?: boolean
 }
 

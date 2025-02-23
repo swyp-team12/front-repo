@@ -11,6 +11,9 @@ const IngredientTag = ({ label }: IngredientTagProps) => {
       <Typography variant="label-b" color="primary">
         {label}
       </Typography>
+      <Typography variant="label-r" color="primary">
+        1개
+      </Typography>
     </TagContainer>
   )
 }

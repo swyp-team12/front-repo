@@ -16,7 +16,7 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
     $size === "lg"
       ? "16px"
       : $size === "sm"
-      ? "14px"
+      ? "12px"
       : $size === "xs"
       ? "0px 12px"
       : "16px"};

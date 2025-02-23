@@ -1,79 +1,200 @@
 import { ActivityComponentType } from "@stackflow/react"
-import { AppScreen } from "@stackflow/plugin-basic-ui"
-import SearchBar from "@src/components/SearchBar/SearchBar"
-import SearchHeader from "@src/components/HeaderGroup/SearchHeader"
-import FridgeList from "@src/components/FridgeList/FridgeList"
-import {
-  mockExpireIngredients,
-  mockRefrigeratedItems,
-  mockFrozenItems,
-} from "@src/mocks/mockData"
+
 import VStack from "@src/components/FlexBoxGroup/VStack"
 import Typography from "@src/components/Typography/Typograpy"
-import SearchTag from "@src/components/SearchTag/SearchTag"
+
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import Svg from "@src/components/Svg/Svg"
-import styled from "styled-components"
-import { useState } from "react"
-import FilterBottomSheet from "@src/components/BottomSheet/FilterBottomSheet"
-import RecipeList from "@src/components/RecipeList/RecipeList"
+
 import { mockRecipes } from "@src/mocks/mockApiData"
+import NoneHeader from "@src/components/HeaderGroup/NoneHeader"
+import IngredientTag from "@src/components/IngredientTag/IngredientTag"
+import styled from "styled-components"
+import Button from "@src/components/Button/Button"
+import BottomButtonField from "@src/components/BottomButtonField/BottomButtonField"
+import { useState } from "react"
+import Modal from "@src/components/ModalGroup/Modal"
+const Divider = styled.div`
+  width: 100%;
+  height: 6px;
+  background-color: #ededed;
+  margin: 20px 0px;
+`
 
-const mockRecentSearches = ["치즈", "양배추", "양배추"]
+interface RecipeDetailActivityProps {
+  recipesId: number
+}
 
-const RecipeDetailActivity: ActivityComponentType = () => {
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
+const RecipeDetailActivity: ActivityComponentType<
+  RecipeDetailActivityProps
+> = ({ params }) => {
+  const { recipesId } = params
+  const recipe =
+    mockRecipes.find((v) => v.recipesId === recipesId) || mockRecipes[0]
 
-  const handleDeleteSearch = (search: string) => {
-    // 검색어 삭제 로직
-    console.log("delete", search)
-  }
-
-  const handleFilterClick = () => {
-    setIsFilterOpen(true)
-  }
-
-  const handleFilterClose = () => {
-    setIsFilterOpen(false)
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <SearchHeader>
-      <VStack pl={20} pr={20} gap={16}>
-        <VStack pt={16} gap={12}>
-          <Typography variant="body-b" color="primary">
-            최근 검색
-          </Typography>
+    <NoneHeader>
+      <VStack pl={20} pr={20} gap={20}>
+        <HStack justifyContent="space-between" mt={20}>
+          <Typography variant="body-b">{recipe.recipesName}</Typography>
+          {recipe.isScrap === "0" ? (
+            <Svg
+              src="/icon/icon_scrap_empty.svg"
+              width={24}
+              height={24}
+              alt="스크랩"
+            />
+          ) : (
+            <Svg
+              src="/icon/icon_scrap_fill.svg"
+              width={24}
+              height={24}
+              alt="스크랩"
+            />
+          )}
+        </HStack>
+
+        <VStack gap={16}>
+          <Typography variant="label-b">재료</Typography>
           <HStack gap={8}>
-            {mockRecentSearches.map((search) => (
-              <SearchTag
-                key={search}
-                label={search}
-                onDelete={() => handleDeleteSearch(search)}
-              />
+            {recipe.requiredIngredients.map((v) => (
+              <IngredientTag label={v} />
             ))}
           </HStack>
         </VStack>
+      </VStack>
 
-        <VStack gap={8}>
-          <HStack justifyContent="flex-end">
-            <HStack alignItems="center" onClick={handleFilterClick} gap={4}>
-              <Svg
-                src="/icon/icon_filter.svg"
-                width={22}
-                height={22}
-                alt="필터"
-              />
-              <Typography variant="label-b" color="primary">
-                필터
-              </Typography>
-            </HStack>
-          </HStack>
-          <RecipeList recipes={mockRecipes} />
+      <Divider />
+
+      <VStack pl={20} pr={20} gap={20}>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 1
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 2
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 3
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
+        </VStack>
+        <VStack gap={12}>
+          <Typography variant="body-b" color="primary">
+            Step 4
+          </Typography>
+          <Typography variant="label-b">
+            냉장고에 있는 재료를 꺼내 손질합니다.
+          </Typography>
         </VStack>
       </VStack>
-      <FilterBottomSheet isOpen={isFilterOpen} onClose={handleFilterClose} />
-    </SearchHeader>
+
+      <BottomButtonField>
+        <Button
+          variant="primary"
+          size="lg"
+          label="조리 시작"
+          onClick={() => {
+            setIsModalOpen(true)
+          }}
+        />
+      </BottomButtonField>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="레시피 사용"
+      >
+        <VStack gap={20} width="100%">
+          <VStack gap={2} alignItems="center">
+            <Typography variant="label-m">
+              이 레시피를 사용하시겠습니까?
+            </Typography>
+            <Typography variant="label-m">
+              확인 후 에도 전체 레시피 열람이 가능합니다.
+            </Typography>
+          </VStack>
+          <HStack gap={12}>
+            <Button
+              variant="secondary"
+              size="sm"
+              label="취소"
+              onClick={() => setIsModalOpen(false)}
+            />
+            <Button variant="primary" size="sm" label="확인" />
+          </HStack>
+        </VStack>
+      </Modal>
+    </NoneHeader>
   )
 }
 

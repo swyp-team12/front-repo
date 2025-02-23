@@ -74,6 +74,7 @@ const colors = {
   black: "#000000",
   white: "#FFFFFF",
   lightGray: "#F7F9FA",
+  darkGray: "#304A47",
   ["kakao-main"]: "#FEE500",
   ["kakao-logo"]: "#191919",
   ["gray-100"]: "#EDF0F2",

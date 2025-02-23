@@ -22,8 +22,8 @@ interface FlexBoxStyledProps {
   minHeight?: string
   maxWidth?: string
   maxHeight?: string
-  justifyContent?: string
-  alignItems?: string
+  $justifyContent?: string
+  $alignItems?: string
   flexGrow?: number
   overflowX?: string
   overflowY?: string
@@ -63,8 +63,8 @@ export const FlexBoxContainer = styled.div<FlexBoxStyledProps>`
   min-height: ${({ minHeight }) => minHeight};
   max-width: ${({ maxWidth }) => maxWidth};
   max-height: ${({ maxHeight }) => maxHeight};
-  justify-content: ${({ justifyContent }) => justifyContent};
-  align-items: ${({ alignItems }) => alignItems};
+  justify-content: ${({ $justifyContent }) => $justifyContent};
+  align-items: ${({ $alignItems }) => $alignItems};
   flex-grow: ${({ flexGrow }) => flexGrow};
   overflow-x: ${({ overflowX }) => overflowX};
   overflow-y: ${({ overflowY }) => overflowY};

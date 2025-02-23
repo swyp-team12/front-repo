@@ -11,7 +11,7 @@ interface FilterBottomSheetProps {
   onClose: () => void
 }
 
-const Overlay = styled.div<{ isVisible: boolean }>`
+const Overlay = styled.div<{ $isVisible: boolean }>`
   position: fixed;
   top: 0;
   left: 50%;
@@ -20,18 +20,18 @@ const Overlay = styled.div<{ isVisible: boolean }>`
   height: 100%;
   background: rgba(146, 146, 146, 0.4);
   z-index: 1000;
-  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  pointer-events: ${({ isVisible }) => (isVisible ? "auto" : "none")};
+  pointer-events: ${({ $isVisible }) => ($isVisible ? "auto" : "none")};
 `
 
-const Sheet = styled.div<{ isVisible: boolean }>`
+const Sheet = styled.div<{ $isVisible: boolean }>`
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%)
-    translateY(${({ isVisible }) => (isVisible ? "0" : "100%")});
+    translateY(${({ $isVisible }) => ($isVisible ? "0" : "100%")});
   width: 399px;
   height: 80vh;
   max-height: 80%;
@@ -89,8 +89,8 @@ const FilterBottomSheet = ({ isOpen, onClose }: FilterBottomSheetProps) => {
 
   return createPortal(
     <>
-      <Overlay isVisible={isOpen} onClick={onClose} />
-      <Sheet isVisible={isOpen}>
+      <Overlay $isVisible={isOpen} onClick={onClose} />
+      <Sheet $isVisible={isOpen}>
         <VStack gap={16}>
           <Header>
             <Typography variant="head-b" color="gray-900">
