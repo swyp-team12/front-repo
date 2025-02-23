@@ -7,6 +7,7 @@ import { stackflow } from "@stackflow/react"
 import HomeActivity from "@src/activities/home/HomeActivity"
 import FridgeActivity from "@src/activities/home/fridge/FridgeActivity"
 import RecipeActivity from "@src/activities/home/recipes/RecipeActivity"
+import RecipeDetailActivity from "@src/activities/home/recipes/detail/RecipeDetailActivity"
 
 export const { Stack, useFlow } = stackflow({
   transitionDuration: 350,
@@ -14,6 +15,7 @@ export const { Stack, useFlow } = stackflow({
     HomeActivity,
     FridgeActivity,
     RecipeActivity,
+    RecipeDetailActivity,
   },
 
   plugins: [
@@ -25,6 +27,7 @@ export const { Stack, useFlow } = stackflow({
         HomeActivity: "/home",
         FridgeActivity: "/home/fridge",
         RecipeActivity: "/home/recipes",
+        RecipeDetailActivity: "/home/recipes/detail",
       },
       fallbackActivity: () => "HomeActivity",
     }),

@@ -2,7 +2,7 @@ import Card from "@src/components/Card/Card"
 import VStack from "@src/components/FlexBoxGroup/VStack"
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import Typography from "@src/components/Typography/Typograpy"
-import IngredientTag from "@src/components/IngredientTag/IngredientTag"
+import IngredientLabel from "@src/components/IngredientLabel/IngredientLabel"
 import Svg from "@src/components/Svg/Svg"
 import styled from "styled-components"
 
@@ -23,6 +23,7 @@ interface RecipeCardProps {
   missingIngredients: string[]
   isScrap: boolean
   onToggleScrap: () => void
+  onClick?: () => void
 }
 
 const RecipeCard = ({
@@ -31,9 +32,10 @@ const RecipeCard = ({
   missingIngredients,
   isScrap,
   onToggleScrap,
+  onClick,
 }: RecipeCardProps) => {
   return (
-    <Card>
+    <Card onClick={onClick}>
       <Container gap={8}>
         <Typography variant="body-b" color="gray-900">
           {title}
@@ -41,7 +43,7 @@ const RecipeCard = ({
 
         <VStack gap={4}>
           <HStack gap={8} alignItems="center">
-            <IngredientTag label="필요 재료" />
+            <IngredientLabel label="필요 재료" />
             <Typography variant="label-b" color="gray-500">
               {requiredIngredients.join(", ")}
             </Typography>
@@ -49,7 +51,7 @@ const RecipeCard = ({
 
           <HStack gap={8} alignItems="center" justifyContent="space-between">
             <HStack gap={8} alignItems="center">
-              <IngredientTag label="없는 재료" />
+              <IngredientLabel label="없는 재료" />
               <Typography variant="label-b" color="gray-500">
                 {missingIngredients.join(", ")}
               </Typography>
