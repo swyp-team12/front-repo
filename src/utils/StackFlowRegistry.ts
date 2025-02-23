@@ -8,7 +8,7 @@ import HomeActivity from "@src/activities/home/HomeActivity"
 import FridgeActivity from "@src/activities/home/fridge/FridgeActivity"
 import RecipeActivity from "@src/activities/home/recipes/RecipeActivity"
 import RecipeDetailActivity from "@src/activities/home/recipes/detail/RecipeDetailActivity"
-
+import RecipeChooseActivity from "@src/activities/home/recipes/choose/RecipeChooseActivity"
 export const { Stack, useFlow } = stackflow({
   transitionDuration: 350,
   activities: {
@@ -16,6 +16,7 @@ export const { Stack, useFlow } = stackflow({
     FridgeActivity,
     RecipeActivity,
     RecipeDetailActivity,
+    RecipeChooseActivity,
   },
 
   plugins: [
@@ -28,6 +29,7 @@ export const { Stack, useFlow } = stackflow({
         FridgeActivity: "/home/fridge",
         RecipeActivity: "/home/recipes",
         RecipeDetailActivity: "/home/recipes/detail",
+        RecipeChooseActivity: "/home/recipes/choose",
       },
       fallbackActivity: () => "HomeActivity",
     }),

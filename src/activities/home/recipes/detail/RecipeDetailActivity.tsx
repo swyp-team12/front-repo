@@ -12,7 +12,8 @@ import IngredientTag from "@src/components/IngredientTag/IngredientTag"
 import styled from "styled-components"
 import Button from "@src/components/Button/Button"
 import BottomButtonField from "@src/components/BottomButtonField/BottomButtonField"
-
+import { useState } from "react"
+import Modal from "@src/components/ModalGroup/Modal"
 const Divider = styled.div`
   width: 100%;
   height: 6px;
@@ -30,6 +31,8 @@ const RecipeDetailActivity: ActivityComponentType<
   const { recipesId } = params
   const recipe =
     mockRecipes.find((v) => v.recipesId === recipesId) || mockRecipes[0]
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <NoneHeader>
@@ -157,8 +160,35 @@ const RecipeDetailActivity: ActivityComponentType<
       </VStack>
 
       <BottomButtonField>
-        <Button variant="primary" size="lg" label="조리 시작" />
+        <Button
+          variant="primary"
+          size="lg"
+          label="조리 시작"
+          onClick={() => {
+            setIsModalOpen(true)
+          }}
+        />
       </BottomButtonField>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="레시피 사용"
+      >
+        <VStack gap={20} width="100%">
+          <VStack gap={2} alignItems="center">
+            <Typography variant="label-m">
+              이 레시피를 사용하시겠습니까?
+            </Typography>
+            <Typography variant="label-m">
+              확인 후 에도 전체 레시피 열람이 가능합니다.
+            </Typography>
+          </VStack>
+          <HStack gap={12}>
+            <Button variant="secondary" size="sm" label="취소" />
+            <Button variant="primary" size="sm" label="확인" />
+          </HStack>
+        </VStack>
+      </Modal>
     </NoneHeader>
   )
 }

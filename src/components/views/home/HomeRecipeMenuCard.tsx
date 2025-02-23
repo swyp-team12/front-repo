@@ -4,8 +4,15 @@ import VStack from "@src/components/FlexBoxGroup/VStack"
 import Typography from "@src/components/Typography/Typograpy"
 import Svg from "@src/components/Svg/Svg"
 import { MenuButton, Divider } from "./styled"
+import { useFlow } from "@src/utils/StackFlowRegistry"
 
 const HomeRecipeMenuCard = () => {
+  const { push } = useFlow()
+
+  const handleChooseRecipeClick = () => {
+    push("RecipeChooseActivity", {})
+  }
+
   return (
     <Card>
       <HStack justifyContent="space-between" p="12px 0px">
@@ -47,7 +54,7 @@ const HomeRecipeMenuCard = () => {
 
         <Divider />
 
-        <MenuButton onClick={() => console.log("click clicked")}>
+        <MenuButton onClick={handleChooseRecipeClick}>
           <Svg
             src="/icon/img_click.svg"
             width={32}
