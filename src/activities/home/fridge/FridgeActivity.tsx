@@ -34,7 +34,7 @@ const FridgeActivity: ActivityComponentType = () => {
     <SearchHeader>
       <VStack pl={20} pr={20} gap={16}>
         <VStack pt={16} gap={12}>
-          <Typography variant="body-b" color="primary">
+          {/* <Typography variant="body-b" color="primary">
             최근 검색
           </Typography>
           <HStack gap={8}>
@@ -45,11 +45,12 @@ const FridgeActivity: ActivityComponentType = () => {
                 onDelete={() => handleDeleteSearch(search)}
               />
             ))}
-          </HStack>
+          </HStack> */}
+          <></>
         </VStack>
 
         <VStack gap={8}>
-          <HStack justifyContent="flex-end">
+          {/* <HStack justifyContent="flex-end">
             <HStack alignItems="center" onClick={handleFilterClick} gap={4}>
               <Svg
                 src="/icon/icon_filter.svg"
@@ -61,7 +62,7 @@ const FridgeActivity: ActivityComponentType = () => {
                 필터
               </Typography>
             </HStack>
-          </HStack>
+          </HStack> */}
           <FridgeList
             refrigeratedItems={refrigeratedItems}
             frozenItems={frozenItems}

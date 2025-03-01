@@ -16,7 +16,7 @@ const HomeFridgeView = ({}: HomeFridgeViewProps) => {
   const { expiredItems, refrigeratedItems, frozenItems } = useIngredientList()
 
   const handleExpiredMoreClick = () => {
-    console.log("유통기한 임박 더보기")
+    push("IngExpiredActivity", {})
   }
 
   const handleFridgeMoreClick = () => {
@@ -27,7 +27,7 @@ const HomeFridgeView = ({}: HomeFridgeViewProps) => {
     <VStack gap={24} pt={24} pl={20} pr={20}>
       <VStack gap={16}>
         <TitleWithMore
-          title="유통기한 임박 ⚠"
+          title="소비기한 임박 ⚠"
           onClickMore={handleExpiredMoreClick}
         />
         <HomeExpiredCard
@@ -44,7 +44,12 @@ const HomeFridgeView = ({}: HomeFridgeViewProps) => {
         <VStack gap={14}>
           <HStack gap={4}>
             <SearchBar placeholder="냉장고 안의 재료를 검색해보세요." />
-            <Button variant="primary" size="xs" label="추가" />
+            <Button
+              variant="primary"
+              size="xs"
+              label="검색"
+              onClick={handleFridgeMoreClick}
+            />
           </HStack>
           <FridgeList
             refrigeratedItems={refrigeratedItems}

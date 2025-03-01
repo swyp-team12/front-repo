@@ -1,4 +1,8 @@
-import { Ingredient, IngredientCreateRequest } from "@src/types/apiTypes"
+import {
+  Ingredient,
+  IngredientCreateRequest,
+  IngredientModifyRequest,
+} from "@src/types/apiTypes"
 import axios from "axios"
 
 export const getIngredientList = async () => {
@@ -14,10 +18,10 @@ export const getIngredientList = async () => {
   return response.data
 }
 
-export const getIngredientDetail = async (ingId: string) => {
+export const getIngredientDetail = async (ingId: number) => {
   const response = await axios({
     method: "GET",
-    url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient/${Number(ingId)}`,
+    url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient/${ingId}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -41,12 +45,10 @@ export const createIngredient = async (ingredient: IngredientCreateRequest) => {
   return response.data
 }
 
-export const updateIngredient = async (ingredient: Ingredient) => {
+export const updateIngredient = async (ingredient: IngredientModifyRequest) => {
   const response = await axios({
     method: "PUT",
-    url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient/${Number(
-      ingredient.ingId
-    )}`,
+    url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient/${ingredient.ingId}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -55,10 +57,10 @@ export const updateIngredient = async (ingredient: Ingredient) => {
   })
 }
 
-export const deleteIngredient = async (ingId: string) => {
+export const deleteIngredient = async (ingId: number) => {
   const response = await axios({
     method: "DELETE",
-    url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient/${Number(ingId)}`,
+    url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient/${ingId}`,
     headers: {
       "Content-Type": "application/json",
     },

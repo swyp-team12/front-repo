@@ -29,7 +29,7 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  min-height: 216px;
+  min-height: 134px;
   width: 100%;
   align-content: start;
 `
@@ -63,32 +63,51 @@ const FridgeList = ({
           <Typography variant="body-b" color="primary">
             냉장 🍎
           </Typography>
-          <GridContainer>
-            {refrigeratedItems.map((item) => (
-              <VStack key={item.name} alignItems="center" gap={4}>
-                <IconCard
-                  onClick={() => handleItemClick(`${item.ingId}`)}
-                  selected={
-                    type === "select" && "selectedIds" in props
-                      ? props.selectedIds.includes(`${item.ingId}`)
-                      : false
-                  }
-                >
-                  <VStack alignItems="center" justifyContent="center" gap={4}>
-                    <Svg
-                      src={`/icon/category/icon_${item.category}.svg`}
-                      width={24}
-                      height={24}
-                      alt={item.name}
-                    />
-                    <Typography variant="label-b" color="gray-800">
-                      {truncateName(item.name)}
-                    </Typography>
-                  </VStack>
-                </IconCard>
+          {refrigeratedItems.length > 0 ? (
+            <GridContainer>
+              {refrigeratedItems.map((item) => (
+                <VStack key={item.name} alignItems="center" gap={4}>
+                  <IconCard
+                    onClick={() => handleItemClick(`${item.ingId}`)}
+                    selected={
+                      type === "select" && "selectedIds" in props
+                        ? props.selectedIds.includes(`${item.ingId}`)
+                        : false
+                    }
+                  >
+                    <VStack alignItems="center" justifyContent="center" gap={4}>
+                      <Svg
+                        src={`/icon/category/icon_${item.category}.svg`}
+                        width={24}
+                        height={24}
+                        alt={item.name}
+                      />
+                      <Typography variant="label-b" color="gray-800">
+                        {truncateName(item.name)}
+                      </Typography>
+                    </VStack>
+                  </IconCard>
+                </VStack>
+              ))}
+            </GridContainer>
+          ) : (
+            <VStack alignItems="center" gap={8} pt={16} pb={16}>
+              <Svg
+                src="/icon/icon_empty_box.svg"
+                width={32}
+                height={32}
+                alt="빈 박스"
+              />
+              <VStack gap={2} alignItems="center">
+                <Typography variant="label-m" color="primary">
+                  등록된 제품이 없어요!
+                </Typography>
+                <Typography variant="label-m" color="primary">
+                  제품 등록을 진행해주세요.
+                </Typography>
               </VStack>
-            ))}
-          </GridContainer>
+            </VStack>
+          )}
         </VStack>
       </Card>
 
@@ -97,32 +116,51 @@ const FridgeList = ({
           <Typography variant="body-b" color="primary">
             냉동 ❄️
           </Typography>
-          <GridContainer>
-            {frozenItems.map((item) => (
-              <VStack key={item.name} alignItems="center" gap={4}>
-                <IconCard
-                  onClick={() => handleItemClick(`${item.ingId}`)}
-                  selected={
-                    type === "select" && "selectedIds" in props
-                      ? props.selectedIds.includes(`${item.ingId}`)
-                      : false
-                  }
-                >
-                  <VStack alignItems="center" justifyContent="center" gap={4}>
-                    <Svg
-                      src={`/icon/category/icon_${item.category}.svg`}
-                      width={24}
-                      height={24}
-                      alt={item.name}
-                    />
-                    <Typography variant="label-b" color="gray-800">
-                      {truncateName(item.name)}
-                    </Typography>
-                  </VStack>
-                </IconCard>
+          {frozenItems.length > 0 ? (
+            <GridContainer>
+              {frozenItems.map((item) => (
+                <VStack key={item.name} alignItems="center" gap={4}>
+                  <IconCard
+                    onClick={() => handleItemClick(`${item.ingId}`)}
+                    selected={
+                      type === "select" && "selectedIds" in props
+                        ? props.selectedIds.includes(`${item.ingId}`)
+                        : false
+                    }
+                  >
+                    <VStack alignItems="center" justifyContent="center" gap={4}>
+                      <Svg
+                        src={`/icon/category/icon_${item.category}.svg`}
+                        width={24}
+                        height={24}
+                        alt={item.name}
+                      />
+                      <Typography variant="label-b" color="gray-800">
+                        {truncateName(item.name)}
+                      </Typography>
+                    </VStack>
+                  </IconCard>
+                </VStack>
+              ))}
+            </GridContainer>
+          ) : (
+            <VStack alignItems="center" gap={8} pt={16} pb={16}>
+              <Svg
+                src="/icon/icon_empty_box.svg"
+                width={32}
+                height={32}
+                alt="빈 박스"
+              />
+              <VStack gap={2} alignItems="center">
+                <Typography variant="label-m" color="primary">
+                  등록된 제품이 없어요!
+                </Typography>
+                <Typography variant="label-m" color="primary">
+                  제품 등록을 진행해주세요.
+                </Typography>
               </VStack>
-            ))}
-          </GridContainer>
+            </VStack>
+          )}
         </VStack>
       </Card>
     </VStack>

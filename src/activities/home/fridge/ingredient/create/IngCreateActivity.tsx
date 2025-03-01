@@ -6,14 +6,13 @@ import Svg from "@src/components/Svg/Svg"
 import Typography from "@src/components/Typography/Typograpy"
 import FormInput from "@src/components/FormGroup/FormInput"
 import FormSelect from "@src/components/FormGroup/FormSelect"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import FormTextArea from "@src/components/FormGroup/FormTextArea"
 import BottomButtonField from "@src/components/BottomButtonField/BottomButtonField"
 import Button from "@src/components/Button/Button"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { createIngredient } from "@src/apis/fridgeApis"
 import { useFlow } from "@src/utils/StackFlowRegistry"
 import FormCalendar from "@src/components/FormGroup/FormCalendar"
+import useCreateIngredient from "@src/hooks/useCreateIngredient"
 
 interface IngCreateActivityProps {}
 
@@ -51,8 +50,7 @@ const storageTypeOptions = [
 ]
 
 const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
-  const queryClient = useQueryClient()
-
+  const { mutate, isSuccess } = useCreateIngredient()
   const { pop } = useFlow()
   const [name, setName] = useState("")
   const [quantity, setQuantity] = useState("")
@@ -65,16 +63,15 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
   const [imagePreview, setImagePreview] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: createIngredient,
-    onSuccess: () => {
-      pop()
-      queryClient.invalidateQueries({ queryKey: ["ingredientList"] })
-    },
-    onError: () => {
-      console.log("재료 정보 생성 실패")
-    },
-  })
+  const disabled = useMemo(() => {
+    return (
+      name === "" ||
+      expiryDate === "" ||
+      storageType === "" ||
+      category === "" ||
+      ingNum === 0
+    )
+  }, [name, expiryDate, storageType, category, ingNum])
 
   const init = () => {
     setName("")
@@ -131,11 +128,14 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
       ingImage: images[0],
     }
 
-    if (isPending) {
-      return
-    }
     mutate(submitData)
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      pop()
+    }
+  }, [isSuccess])
 
   useEffect(() => {
     init()
@@ -314,6 +314,7 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
           <Button
             size="lg"
             variant="primary"
+            disabled={disabled}
             onClick={handleSubmit}
             label="저장하기"
           />

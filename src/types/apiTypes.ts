@@ -23,6 +23,10 @@ export type IngredientCreateRequest = {
   ingImage: File
 }
 
+export type IngredientModifyRequest = IngredientCreateRequest & {
+  ingId: number
+}
+
 export type IngredientListResponse = {
   status: string
   data: Ingredient[]

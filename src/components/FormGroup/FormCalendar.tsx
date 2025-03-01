@@ -223,9 +223,9 @@ const FormCalendar: React.FC<FormCalendarProps> = ({
                 <DayCell
                   key={index}
                   onClick={() => date && handleDateSelect(date)}
-                  isToday={date ? isToday(date) : false}
-                  isSelected={date ? isSelected(date) : false}
-                  isCurrentMonth={!!date}
+                  $isToday={date ? isToday(date) : false}
+                  $isSelected={date ? isSelected(date) : false}
+                  $isCurrentMonth={!!date}
                 >
                   {date && (
                     <Typography
@@ -345,9 +345,9 @@ const DaysGrid = styled.div`
 `
 
 interface DayCellProps {
-  isToday: boolean
-  isSelected: boolean
-  isCurrentMonth: boolean
+  $isToday: boolean
+  $isSelected: boolean
+  $isCurrentMonth: boolean
 }
 
 const DayCell = styled.div<DayCellProps>`
@@ -356,15 +356,15 @@ const DayCell = styled.div<DayCellProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: ${(props) => (props.isCurrentMonth ? "pointer" : "default")};
+  cursor: ${(props) => (props.$isCurrentMonth ? "pointer" : "default")};
   border-radius: ${(props) =>
-    props.isSelected || props.isToday ? "50%" : "0"};
+    props.$isSelected || props.$isToday ? "50%" : "0"};
   background-color: ${(props) =>
-    props.isSelected ? "#FB7B0D" : props.isToday ? "#FFF0D8" : "transparent"};
-  opacity: ${(props) => (props.isCurrentMonth ? 1 : 0)};
+    props.$isSelected ? "#FB7B0D" : props.$isToday ? "#FFF0D8" : "transparent"};
+  opacity: ${(props) => (props.$isCurrentMonth ? 1 : 0)};
 
   &:hover {
-    background-color: ${(props) => (props.isSelected ? "#FB7B0D" : "#FFF0D8")};
+    background-color: ${(props) => (props.$isSelected ? "#FB7B0D" : "#FFF0D8")};
     border-radius: 50%;
   }
 `

@@ -17,7 +17,7 @@ const variants = {
   ["head-r"]: {
     fontSize: "20px",
     lineHeight: "28px",
-    fontWeight: 300,
+    fontWeight: 400,
   },
   "body-b": {
     fontSize: "16px",
@@ -32,7 +32,7 @@ const variants = {
   "body-r": {
     fontSize: "16px",
     lineHeight: "24px",
-    fontWeight: 300,
+    fontWeight: 400,
   },
   "label-b": {
     fontSize: "12px",
@@ -47,7 +47,7 @@ const variants = {
   "label-r": {
     fontSize: "12px",
     lineHeight: "20px",
-    fontWeight: 300,
+    fontWeight: 400,
   },
   "text-b": {
     fontSize: "8px",
@@ -62,7 +62,7 @@ const variants = {
   "text-r": {
     fontSize: "8px",
     lineHeight: "16px",
-    fontWeight: 300,
+    fontWeight: 400,
   },
 }
 const colors = {
@@ -75,6 +75,7 @@ const colors = {
   white: "#FFFFFF",
   lightGray: "#F7F9FA",
   darkGray: "#304A47",
+  red: "#FF5478",
   ["kakao-main"]: "#FEE500",
   ["kakao-logo"]: "#191919",
   ["gray-100"]: "#EDF0F2",

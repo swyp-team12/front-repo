@@ -28,7 +28,7 @@ const SelectBox = styled.div`
   cursor: pointer;
 `
 
-const DropdownContainer = styled.div<{ isOpen: boolean }>`
+const DropdownContainer = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 100%;
   left: 0;
@@ -37,10 +37,10 @@ const DropdownContainer = styled.div<{ isOpen: boolean }>`
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  max-height: ${({ isOpen }) => (isOpen ? "200px" : "0")};
+  max-height: ${({ $isOpen }) => ($isOpen ? "200px" : "0")};
   overflow-y: auto;
-  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
-  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+  opacity: ${({ $isOpen }) => ($isOpen ? "1" : "0")};
+  visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
   transition: all 0.3s ease;
 `
 
@@ -130,7 +130,7 @@ const FormSelect = ({
         </HStack>
       </SelectBox>
 
-      <DropdownContainer isOpen={isOpen}>
+      <DropdownContainer $isOpen={isOpen}>
         <VStack>
           {options.map((option) => (
             <OptionItem

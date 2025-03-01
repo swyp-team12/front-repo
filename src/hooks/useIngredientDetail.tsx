@@ -2,7 +2,7 @@ import { getIngredientDetail } from "@src/apis/fridgeApis"
 import { Ingredient, IngredientDetailResponse } from "@src/types/apiTypes"
 import { useQuery } from "@tanstack/react-query"
 
-const useIngredientDetail = (ingId: string) => {
+const useIngredientDetail = (ingId: number) => {
   const { data: ingredientDetail, isLoading } = useQuery<
     IngredientDetailResponse,
     unknown,

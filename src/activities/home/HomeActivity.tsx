@@ -20,7 +20,7 @@ const HomeActivity: ActivityComponentType = () => {
 
   return (
     <IconWithSettingHeader hasNavigation>
-      {/* <Myinfo/> */}    
+      {/* <Myinfo/> */}
       <VStack width="100%" height="80px" bg="quaternary">
         <></>
       </VStack>

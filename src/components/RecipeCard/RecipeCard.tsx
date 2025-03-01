@@ -58,7 +58,9 @@ const RecipeCard = ({
             </HStack>
             <ScrapButton onClick={onToggleScrap}>
               <Svg
-                src={`/icon/icon_scrap_${isScrap ? "fill" : "empty"}.svg`}
+                src={`/icon/icon_scrap_${
+                  isScrap ? "fill" : "empty_primary"
+                }.svg`}
                 width={20}
                 height={20}
                 alt={isScrap ? "스크랩 취소" : "스크랩"}
