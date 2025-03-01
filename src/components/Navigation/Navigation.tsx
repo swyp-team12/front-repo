@@ -19,7 +19,7 @@ const Navigation = ({ rootType }: NavigationProps) => {
   }
 
   const addIconClick = () => {
-    // replace("AddIngredientActivity", {})
+    push("IngCreateActivity", {})
   }
 
   return (

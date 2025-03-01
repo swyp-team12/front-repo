@@ -13,6 +13,8 @@ import RecipeLoadingActivity from "@src/activities/home/recipes/loading/RecipeLo
 import RecipeUsedActivity from "@src/activities/home/recipes/used/RecipeUsedActivity"
 import IngDetailActivity from "@src/activities/home/fridge/ingredient/detail/IngDetailActivity"
 import IngModifyActivity from "@src/activities/home/fridge/ingredient/modify/IngModifyActivity"
+import IngCreateActivity from "@src/activities/home/fridge/ingredient/create/IngCreateActivity"
+
 export const { Stack, useFlow } = stackflow({
   transitionDuration: 350,
   activities: {
@@ -23,6 +25,7 @@ export const { Stack, useFlow } = stackflow({
     RecipeChooseActivity,
     RecipeLoadingActivity,
     RecipeUsedActivity,
+    IngCreateActivity,
     IngDetailActivity,
     IngModifyActivity,
   },
@@ -40,6 +43,7 @@ export const { Stack, useFlow } = stackflow({
         RecipeChooseActivity: "/home/recipes/choose",
         RecipeLoadingActivity: "/home/recipes/loading",
         RecipeUsedActivity: "/home/recipes/used",
+        IngCreateActivity: "/home/fridge/ingredient/create",
         IngDetailActivity: "/home/fridge/ingredient/detail",
         IngModifyActivity: "/home/fridge/ingredient/modify",
       },

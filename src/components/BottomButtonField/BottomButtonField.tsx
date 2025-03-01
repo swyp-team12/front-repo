@@ -9,7 +9,7 @@ interface BottomButtonFieldProps {
 const BottomButtonField = ({ children }: BottomButtonFieldProps) => {
   return (
     <FixedBottomContainer>
-      <VStack pl={20} pr={20} pt={32} pb={32}>
+      <VStack pt={32} pb={32}>
         {children}
       </VStack>
     </FixedBottomContainer>

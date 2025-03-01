@@ -1,4 +1,4 @@
-import { Ingredient } from "@src/types/apiTypes"
+import { Ingredient, IngredientCreateRequest } from "@src/types/apiTypes"
 import axios from "axios"
 
 export const getIngredientList = async () => {
@@ -27,7 +27,7 @@ export const getIngredientDetail = async (ingId: string) => {
   return response.data
 }
 
-export const createIngredient = async (ingredient: Ingredient) => {
+export const createIngredient = async (ingredient: IngredientCreateRequest) => {
   const response = await axios({
     method: "POST",
     url: `${process.env.NEXT_PUBLIC_API_URL}/ingredient`,

@@ -22,7 +22,6 @@ const RecipeUsedActivity: ActivityComponentType = () => {
 
   return (
     <AppScreen>
-        
       <BottomButtonField>
         <HStack gap={12}>
           <Button size="lg" variant="secondary" label="재료 추가하기" />

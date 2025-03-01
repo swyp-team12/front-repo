@@ -7,9 +7,20 @@ export type Ingredient = {
   ingNum: number
   name: string
   quantity: string
-  storageType: "냉장" | "냉동"
+  storageType: string
   updatedAt: string
   userMemo: string
+}
+
+export type IngredientCreateRequest = {
+  name: string
+  quantity: string
+  ingNum: number
+  expiryDate: string
+  storageType: string
+  category: string
+  userMemo: string
+  ingImage: File
 }
 
 export type IngredientListResponse = {
