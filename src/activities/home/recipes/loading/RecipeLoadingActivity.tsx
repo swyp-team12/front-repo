@@ -3,8 +3,24 @@ import VStack from "@src/components/FlexBoxGroup/VStack"
 import Typography from "@src/components/Typography/Typograpy"
 import Svg from "@src/components/Svg/Svg"
 import { AppScreen } from "@stackflow/plugin-basic-ui"
+import styled from "styled-components"
+import Spinner from "@src/components/Spinner/Spinner"
+import { useEffect } from "react"
+import { useFlow } from "@src/utils/StackFlowRegistry"
+
+const SpinnerWrapper = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+`
 
 const RecipeLoadingActivity: ActivityComponentType = () => {
+  const { replace } = useFlow()
+  useEffect(() => {
+    setTimeout(() => {
+      replace("RecipeDetailActivity", { recipesId: 1 })
+    }, 3000)
+  }, [])
   return (
     <AppScreen>
       <VStack
@@ -35,6 +51,9 @@ const RecipeLoadingActivity: ActivityComponentType = () => {
           </VStack>
         </VStack>
       </VStack>
+      <SpinnerWrapper>
+        <Spinner />
+      </SpinnerWrapper>
     </AppScreen>
   )
 }

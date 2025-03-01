@@ -6,11 +6,13 @@ import { ContentContainer } from "./styled"
 interface IconWithSettingHeaderProps {
   children: React.ReactNode
   hasNavigation?: boolean
+  navType?: "home" | "scrap"
 }
 
 const IconWithSettingHeader = ({
   children,
   hasNavigation = false,
+  navType = "home",
 }: IconWithSettingHeaderProps) => {
   return (
     <AppScreen
@@ -27,7 +29,7 @@ const IconWithSettingHeader = ({
       }}
     >
       <ContentContainer>{children}</ContentContainer>
-      {hasNavigation && <Navigation />}
+      {hasNavigation && <Navigation rootType={navType} />}
     </AppScreen>
   )
 }

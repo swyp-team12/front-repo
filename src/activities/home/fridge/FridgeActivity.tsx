@@ -1,25 +1,20 @@
 import { ActivityComponentType } from "@stackflow/react"
-import { AppScreen } from "@stackflow/plugin-basic-ui"
-import SearchBar from "@src/components/SearchBar/SearchBar"
 import SearchHeader from "@src/components/HeaderGroup/SearchHeader"
 import FridgeList from "@src/components/FridgeList/FridgeList"
-import {
-  mockExpireIngredients,
-  mockRefrigeratedItems,
-  mockFrozenItems,
-} from "@src/mocks/mockData"
 import VStack from "@src/components/FlexBoxGroup/VStack"
 import Typography from "@src/components/Typography/Typograpy"
 import SearchTag from "@src/components/SearchTag/SearchTag"
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import Svg from "@src/components/Svg/Svg"
-import styled from "styled-components"
 import { useState } from "react"
 import FilterBottomSheet from "@src/components/BottomSheet/FilterBottomSheet"
+import useIngredientList from "@src/hooks/useIngredientList"
 
 const mockRecentSearches = ["치즈", "우유", "계란"]
 
 const FridgeActivity: ActivityComponentType = () => {
+  const { refrigeratedItems, frozenItems, isLoading } = useIngredientList()
+
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const handleDeleteSearch = (search: string) => {
@@ -68,8 +63,8 @@ const FridgeActivity: ActivityComponentType = () => {
             </HStack>
           </HStack>
           <FridgeList
-            refrigeratedItems={mockRefrigeratedItems}
-            frozenItems={mockFrozenItems}
+            refrigeratedItems={refrigeratedItems}
+            frozenItems={frozenItems}
           />
         </VStack>
       </VStack>

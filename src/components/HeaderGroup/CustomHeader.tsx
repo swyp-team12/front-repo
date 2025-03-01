@@ -4,19 +4,13 @@ import { ContentContainer } from "./styled"
 
 interface CustomHeaderProps {
   children: React.ReactNode
-  hasNavigation?: boolean
   appBar: any
 }
 
-const CustomHeader = ({
-  children,
-  appBar,
-  hasNavigation = false,
-}: CustomHeaderProps) => {
+const CustomHeader = ({ children, appBar }: CustomHeaderProps) => {
   return (
     <AppScreen appBar={appBar}>
       <ContentContainer>{children}</ContentContainer>
-      {hasNavigation && <Navigation />}
     </AppScreen>
   )
 }

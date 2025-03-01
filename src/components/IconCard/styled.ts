@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
 
-export const IconCardContainers = styled.div`
+export const IconCardContainerddd = styled.div`
   width: 60px;
   height: 60px;
   background-color: ${({ theme }) => theme.colors.white};

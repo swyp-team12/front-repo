@@ -9,7 +9,7 @@ import Button from "@src/components/Button/Button"
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import { AppScreen } from "@stackflow/plugin-basic-ui"
 
-const RecipeChooseActivity: ActivityComponentType = () => {
+const RecipeUsedActivity: ActivityComponentType = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
 
   const handleItemClick = (id: string) => {
@@ -33,4 +33,4 @@ const RecipeChooseActivity: ActivityComponentType = () => {
   )
 }
 
-export default RecipeChooseActivity
+export default RecipeUsedActivity

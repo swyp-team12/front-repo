@@ -14,6 +14,7 @@ import Button from "@src/components/Button/Button"
 import BottomButtonField from "@src/components/BottomButtonField/BottomButtonField"
 import { useState } from "react"
 import Modal from "@src/components/ModalGroup/Modal"
+
 const Divider = styled.div`
   width: 100%;
   height: 6px;

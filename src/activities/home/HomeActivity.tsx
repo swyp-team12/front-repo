@@ -28,7 +28,7 @@ const HomeActivity: ActivityComponentType = () => {
       {selectedTab === "0" && <HomeFridgeView />}
       {selectedTab === "1" && <HomeRecipeView />}
     </IconWithSettingHeader>
-  )  
+  )
 }
 
 export default HomeActivity

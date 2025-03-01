@@ -5,14 +5,9 @@ import { ContentContainer } from "./styled"
 interface TitleHeaderProps {
   children: React.ReactNode
   title: string
-  hasNavigation?: boolean
 }
 
-const TitleHeader = ({
-  children,
-  title,
-  hasNavigation = false,
-}: TitleHeaderProps) => {
+const TitleHeader = ({ children, title }: TitleHeaderProps) => {
   return (
     <AppScreen
       appBar={{
@@ -22,7 +17,6 @@ const TitleHeader = ({
       }}
     >
       <ContentContainer>{children}</ContentContainer>
-      {hasNavigation && <Navigation />}
     </AppScreen>
   )
 }

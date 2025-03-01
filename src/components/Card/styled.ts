@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const CardContainers = styled.div`
+export const CardContainerddd = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   padding: 16px;
   border-radius: 16px;

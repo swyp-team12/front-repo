@@ -1,11 +1,14 @@
 "use client"
 
+import { useEffect } from "react"
 import VStack from "@src/components/FlexBoxGroup/VStack"
 import Typography from "@src/components/Typography/Typograpy"
 import Svg from "@src/components/Svg/Svg"
 import styled from "styled-components"
 import Button from "@src/components/Button/Button"
-import Link from "next/link"
+import { getKakaoLogin } from "@src/apis/commonApis"
+import { jwtDecode } from "jwt-decode"
+import { useRouter } from "next/navigation"
 
 const Container = styled(VStack)`
   height: 100vh;
@@ -19,7 +22,32 @@ const Logo = styled(Svg)`
   box-shadow: 2px 2px 24.2px 6px #0000001a;
 `
 
+function isTokenValid(token: string): boolean {
+  try {
+    const decodedToken = jwtDecode<{ exp: number }>(token)
+    const currentTime = Math.floor(Date.now() / 1000)
+    return decodedToken.exp > currentTime
+  } catch {
+    return false
+  }
+}
+
 export default function Home() {
+  const router = useRouter()
+
+  useEffect(() => {
+    console.log("document.cookie", document.cookie)
+
+    const accessToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1]
+
+    if (accessToken && isTokenValid(accessToken)) {
+      router.replace("/home")
+    }
+  }, [])
+
   return (
     <Container>
       <VStack gap={24} alignItems="center">
@@ -43,9 +71,12 @@ export default function Home() {
       </VStack>
 
       <VStack mt={56} width="100%">
-        <Link href="/home">
-          <Button variant="kakao" size="lg" label="카카오톡으로 시작하기" />
-        </Link>
+        <Button
+          variant="kakao"
+          size="lg"
+          label="카카오톡으로 시작하기"
+          onClick={() => getKakaoLogin()}
+        />
       </VStack>
     </Container>
   )

@@ -7,9 +7,12 @@ import { useEffect, useState } from "react"
 import BottomButtonField from "@src/components/BottomButtonField/BottomButtonField"
 import Button from "@src/components/Button/Button"
 import HStack from "@src/components/FlexBoxGroup/HStack"
+import useIngredientList from "@src/hooks/useIngredientList"
 
 const RecipeChooseActivity: ActivityComponentType = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+
+  const { refrigeratedItems, frozenItems } = useIngredientList()
 
   const handleItemClick = (id: string) => {
     if (selectedIds.includes(id)) {
@@ -23,8 +26,8 @@ const RecipeChooseActivity: ActivityComponentType = () => {
     <TitleHeader title="직접 재료 선택">
       <VStack p="20px">
         <FridgeList
-          refrigeratedItems={mockRefrigeratedItems}
-          frozenItems={mockFrozenItems}
+          refrigeratedItems={refrigeratedItems}
+          frozenItems={frozenItems}
           type="select"
           selectedIds={selectedIds}
           onSelect={handleItemClick}

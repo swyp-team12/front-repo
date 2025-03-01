@@ -8,10 +8,7 @@ interface SearchHeaderProps {
   hasNavigation?: boolean
 }
 
-const SearchHeader = ({
-  children,
-  hasNavigation = false,
-}: SearchHeaderProps) => {
+const SearchHeader = ({ children }: SearchHeaderProps) => {
   return (
     <AppScreen
       appBar={{
@@ -22,7 +19,6 @@ const SearchHeader = ({
       }}
     >
       <ContentContainer>{children}</ContentContainer>
-      {hasNavigation && <Navigation />}
     </AppScreen>
   )
 }

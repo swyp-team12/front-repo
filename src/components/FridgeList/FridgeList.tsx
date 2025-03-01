@@ -6,19 +6,11 @@ import Svg from "@src/components/Svg/Svg"
 import IconCard from "@src/components/IconCard/IconCard"
 import styled from "styled-components"
 import { useFlow } from "@src/utils/StackFlowRegistry"
-import { useEffect } from "react"
+import { Ingredient } from "@src/types/apiTypes"
 
 interface BaseFridgeListProps {
-  refrigeratedItems: {
-    id: string
-    name: string
-    category: string
-  }[]
-  frozenItems: {
-    id: string
-    name: string
-    category: string
-  }[]
+  refrigeratedItems: Ingredient[]
+  frozenItems: Ingredient[]
 }
 
 interface SelectFridgeListProps extends BaseFridgeListProps {
@@ -58,8 +50,9 @@ const FridgeList = ({
     if (type === "select" && "onSelect" in props) {
       props.onSelect(id)
     } else {
-      // 뷰 타입일 경우 아이템 상세 페이지로 이동
-      push("HomeActivity", {})
+      push("IngDetailActivity", {
+        ingId: Number(id),
+      })
     }
   }
 
@@ -74,10 +67,10 @@ const FridgeList = ({
             {refrigeratedItems.map((item) => (
               <VStack key={item.name} alignItems="center" gap={4}>
                 <IconCard
-                  onClick={() => handleItemClick(item.id)}
+                  onClick={() => handleItemClick(`${item.ingId}`)}
                   selected={
                     type === "select" && "selectedIds" in props
-                      ? props.selectedIds.includes(item.id)
+                      ? props.selectedIds.includes(`${item.ingId}`)
                       : false
                   }
                 >
@@ -108,10 +101,10 @@ const FridgeList = ({
             {frozenItems.map((item) => (
               <VStack key={item.name} alignItems="center" gap={4}>
                 <IconCard
-                  onClick={() => handleItemClick(item.id)}
+                  onClick={() => handleItemClick(`${item.ingId}`)}
                   selected={
                     type === "select" && "selectedIds" in props
-                      ? props.selectedIds.includes(item.id)
+                      ? props.selectedIds.includes(`${item.ingId}`)
                       : false
                   }
                 >

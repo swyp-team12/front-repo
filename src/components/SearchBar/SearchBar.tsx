@@ -3,6 +3,7 @@ import { SearchBarContainer, SearchInput, SearchIcon } from "./styled"
 
 interface SearchBarProps {
   placeholder?: string
+  
 }
 
 const SearchBar = ({ placeholder = "검색" }: SearchBarProps) => {

@@ -6,13 +6,9 @@ import VStack from "@src/components/FlexBoxGroup/VStack"
 import Svg from "@src/components/Svg/Svg"
 import { useMemo } from "react"
 import { calculateDday } from "@src/utils/commonUtils"
-
+import { Ingredient } from "@src/types/apiTypes"
 interface HomeExpiredCardProps {
-  ingredients: {
-    name: string
-    expireDate: string
-    category: string
-  }[]
+  ingredients: Ingredient[]
   onClickMore: () => void
 }
 
@@ -55,7 +51,7 @@ const HomeExpiredCard = ({
               </IconCard>
 
               <Typography variant="label-b" color="primary">
-                {calculateDday(ingredient.expireDate)}
+                {calculateDday(ingredient.expiryDate)}
               </Typography>
             </VStack>
           ))}
