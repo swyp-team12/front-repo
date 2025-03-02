@@ -35,13 +35,19 @@ const FlexBox = ({
   children,
   justifyContent,
   alignItems,
+  flexGrow,
+  border,
+  borderRadius,
   ...props
 }: FlexBoxProps) => {
   return (
     <FlexBoxContainer
       {...props}
+      $flexGrow={flexGrow}
       $justifyContent={justifyContent}
       $alignItems={alignItems}
+      $border={border}
+      $borderRadius={borderRadius}
     >
       {children}
     </FlexBoxContainer>

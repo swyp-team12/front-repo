@@ -12,9 +12,9 @@ const Navigation = ({ rootType }: NavigationProps) => {
 
   const onIconClick = (rootType: "home" | "scrap") => {
     if (rootType === "scrap") {
-      replace("HomeActivity", {})
+      replace("HomeActivity", {}, { animate: false })
     } else {
-      // replace("ScrapActivity", {})
+      replace("ScrapActivity", {}, { animate: false })
     }
   }
 

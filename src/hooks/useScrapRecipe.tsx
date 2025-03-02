@@ -17,6 +17,7 @@ const useScrapRecipe = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recipeList"] })
       queryClient.invalidateQueries({ queryKey: ["recipeDetail"] })
+      queryClient.invalidateQueries({ queryKey: ["scrapRecipeList"] })
     },
     onError: () => {
       console.error("스크랩 변경 실패")

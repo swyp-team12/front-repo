@@ -51,93 +51,95 @@ const IngDetailActivity: ActivityComponentType<IngDetailActivityProps> = ({
 
   return (
     <TitleHeader title="재료 상세">
-      <VStack gap={14} width="100%" height="30vh" bg="gray-100">
-        <></>
-      </VStack>
-      <VStack p="20px" gap={14}>
-        <VStack gap={2}>
-          <Typography variant="body-r" color="primary">
-            {translateCategory(ingredientDetail.category)}
-          </Typography>
-          <Typography variant="head-b" color="gray-900">
-            {ingredientDetail.name}
-          </Typography>
+      <VStack flexGrow={1}>
+        <VStack gap={14} width="100%" height="30vh" bg="gray-100">
+          <></>
         </VStack>
-        <VStack gap={8}>
-          <HStack alignItems="center" justifyContent="space-between">
+        <VStack p="20px" gap={14}>
+          <VStack gap={2}>
+            <Typography variant="body-r" color="primary">
+              {translateCategory(ingredientDetail.category)}
+            </Typography>
+            <Typography variant="head-b" color="gray-900">
+              {ingredientDetail.name}
+            </Typography>
+          </VStack>
+          <VStack gap={8}>
+            <HStack alignItems="center" justifyContent="space-between">
+              <Typography variant="body-r" color="gray-700">
+                최초 재료 등록 날짜
+              </Typography>
+              <Typography variant="body-b" color="gray-700">
+                {formatISODate(ingredientDetail.createdAt)}
+              </Typography>
+            </HStack>
+            <HStack alignItems="center" justifyContent="space-between">
+              <Typography variant="body-r" color="gray-700">
+                가장 빠른 소비기한
+              </Typography>
+              <Typography variant="body-b" color="red">
+                {formatDateYYYYMMDD(ingredientDetail.expiryDate)}
+              </Typography>
+            </HStack>
+          </VStack>
+        </VStack>
+        <Divider />
+        <VStack p="20px" gap={14}>
+          <HStack justifyContent="space-between" alignItems="center">
             <Typography variant="body-r" color="gray-700">
-              최초 재료 등록 날짜
+              제품 분류
             </Typography>
             <Typography variant="body-b" color="gray-700">
-              {formatISODate(ingredientDetail.createdAt)}
+              {ingredientDetail.storageType}
             </Typography>
           </HStack>
-          <HStack alignItems="center" justifyContent="space-between">
+          <HStack justifyContent="space-between" alignItems="center">
             <Typography variant="body-r" color="gray-700">
-              가장 빠른 소비기한
+              제품 개수
             </Typography>
-            <Typography variant="body-b" color="red">
-              {formatDateYYYYMMDD(ingredientDetail.expiryDate)}
+            <Typography variant="body-b" color="gray-700">
+              {ingredientDetail.ingNum}개
             </Typography>
           </HStack>
-        </VStack>
-      </VStack>
-      <Divider />
-      <VStack p="20px" gap={14}>
-        <HStack justifyContent="space-between" alignItems="center">
-          <Typography variant="body-r" color="gray-700">
-            제품 분류
-          </Typography>
-          <Typography variant="body-b" color="gray-700">
-            {ingredientDetail.storageType}
-          </Typography>
-        </HStack>
-        <HStack justifyContent="space-between" alignItems="center">
-          <Typography variant="body-r" color="gray-700">
-            제품 개수
-          </Typography>
-          <Typography variant="body-b" color="gray-700">
-            {ingredientDetail.ingNum}개
-          </Typography>
-        </HStack>
-        <HStack justifyContent="space-between" alignItems="center">
-          <Typography variant="body-r" color="gray-700">
-            제품 용량
-          </Typography>
-          <Typography variant="body-b" color="gray-700">
-            {ingredientDetail.quantity}
-          </Typography>
-        </HStack>
+          <HStack justifyContent="space-between" alignItems="center">
+            <Typography variant="body-r" color="gray-700">
+              제품 용량
+            </Typography>
+            <Typography variant="body-b" color="gray-700">
+              {ingredientDetail.quantity}
+            </Typography>
+          </HStack>
 
-        <VStack gap={8}>
-          <Typography variant="body-r" color="gray-700">
-            메모
-          </Typography>
-          <MemoContainer>
-            <VStack p="12px">
-              <Typography variant="body-r" color="gray-700">
-                {ingredientDetail.userMemo || "메모가 없습니다."}
-              </Typography>
-            </VStack>
-          </MemoContainer>
+          <VStack gap={8}>
+            <Typography variant="body-r" color="gray-700">
+              메모
+            </Typography>
+            <MemoContainer>
+              <VStack p="12px">
+                <Typography variant="body-r" color="gray-700">
+                  {ingredientDetail.userMemo || "메모가 없습니다."}
+                </Typography>
+              </VStack>
+            </MemoContainer>
+          </VStack>
         </VStack>
+        <BottomButtonField>
+          <HStack gap={12} pr={20} pl={20}>
+            <Button
+              size="lg"
+              variant="secondary"
+              label="재료 삭제하기"
+              onClick={handleDelete}
+            />
+            <Button
+              size="lg"
+              variant="primary"
+              label="정보 수정하기"
+              onClick={handleModify}
+            />
+          </HStack>
+        </BottomButtonField>
       </VStack>
-      <BottomButtonField>
-        <HStack gap={12} pr={20} pl={20}>
-          <Button
-            size="lg"
-            variant="secondary"
-            label="재료 삭제하기"
-            onClick={handleDelete}
-          />
-          <Button
-            size="lg"
-            variant="primary"
-            label="정보 수정하기"
-            onClick={handleModify}
-          />
-        </HStack>
-      </BottomButtonField>
     </TitleHeader>
   )
 }

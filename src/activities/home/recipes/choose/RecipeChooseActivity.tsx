@@ -32,9 +32,13 @@ const RecipeChooseActivity: ActivityComponentType = () => {
     mutate(selectedNames)
   }
 
+  const handleAddIngredient = () => {
+    push("IngCreateActivity", {})
+  }
+
   return (
     <TitleHeader title="직접 재료 선택">
-      <VStack p="20px">
+      <VStack p="20px" flexGrow={1}>
         <FridgeList
           refrigeratedItems={refrigeratedItems}
           frozenItems={frozenItems}
@@ -45,7 +49,12 @@ const RecipeChooseActivity: ActivityComponentType = () => {
       </VStack>
       <BottomButtonField>
         <HStack gap={12} pr={20} pl={20}>
-          <Button size="lg" variant="secondary" label="재료 추가하기" />
+          <Button
+            size="lg"
+            variant="secondary"
+            label="재료 추가하기"
+            onClick={handleAddIngredient}
+          />
           <Button
             size="lg"
             variant="primary"

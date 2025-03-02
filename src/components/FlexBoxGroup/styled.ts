@@ -14,8 +14,8 @@ interface FlexBoxStyledProps {
   mb?: SpacesType
   ml?: SpacesType
   bg?: ColorsType
-  border?: string
-  borderRadius?: SpacesType
+  $border?: string
+  $borderRadius?: SpacesType
   width?: string
   height?: string
   minWidth?: string
@@ -24,7 +24,7 @@ interface FlexBoxStyledProps {
   maxHeight?: string
   $justifyContent?: string
   $alignItems?: string
-  flexGrow?: number
+  $flexGrow?: number
   overflowX?: string
   overflowY?: string
   boxShadow?: string
@@ -54,9 +54,9 @@ export const FlexBoxContainer = styled.div<FlexBoxStyledProps>`
   margin-left: ${({ ml }) => (ml ? theme.spaces[ml] : 0)};
   margin: ${({ m }) => m};
   background-color: ${({ bg }) => (bg ? theme.colors[bg] : "transparent")};
-  border: ${({ border }) => border};
-  border-radius: ${({ borderRadius }) =>
-    borderRadius ? theme.spaces[borderRadius] : 0};
+  border: ${({ $border }) => $border};
+  border-radius: ${({ $borderRadius }) =>
+    $borderRadius ? theme.spaces[$borderRadius] : 0};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   min-width: ${({ minWidth }) => minWidth};
@@ -65,7 +65,7 @@ export const FlexBoxContainer = styled.div<FlexBoxStyledProps>`
   max-height: ${({ maxHeight }) => maxHeight};
   justify-content: ${({ $justifyContent }) => $justifyContent};
   align-items: ${({ $alignItems }) => $alignItems};
-  flex-grow: ${({ flexGrow }) => flexGrow};
+  flex-grow: ${({ $flexGrow }) => $flexGrow};
   overflow-x: ${({ overflowX }) => overflowX};
   overflow-y: ${({ overflowY }) => overflowY};
   box-shadow: ${({ boxShadow }) => boxShadow};

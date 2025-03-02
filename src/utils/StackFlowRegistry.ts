@@ -15,7 +15,9 @@ import IngDetailActivity from "@src/activities/home/fridge/ingredient/detail/Ing
 import IngModifyActivity from "@src/activities/home/fridge/ingredient/modify/IngModifyActivity"
 import IngCreateActivity from "@src/activities/home/fridge/ingredient/create/IngCreateActivity"
 import IngExpiredActivity from "@src/activities/home/fridge/ingredient/expired/IngExpiredActivity"
-
+import ScrapActivity from "@src/activities/home/scrap/ScrapActivity"
+import SettingActivity from "@src/activities/home/setting/SettingActivity"
+import MyInfoActivity from "@src/activities/home/setting/myinfo/MyInfoActivity"
 export const { Stack, useFlow } = stackflow({
   transitionDuration: 350,
   activities: {
@@ -30,6 +32,9 @@ export const { Stack, useFlow } = stackflow({
     IngDetailActivity,
     IngModifyActivity,
     IngExpiredActivity,
+    ScrapActivity,
+    SettingActivity,
+    MyInfoActivity,
   },
 
   plugins: [
@@ -49,6 +54,9 @@ export const { Stack, useFlow } = stackflow({
         IngDetailActivity: "/home/fridge/ingredient/detail",
         IngModifyActivity: "/home/fridge/ingredient/modify",
         IngExpiredActivity: "/home/fridge/ingredient/expired",
+        ScrapActivity: "/home/scrap",
+        SettingActivity: "home/setting",
+        MyInfoActivity: "home/setting/myinfo",
       },
       fallbackActivity: () => "HomeActivity",
     }),
