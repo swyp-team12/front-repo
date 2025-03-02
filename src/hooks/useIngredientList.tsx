@@ -31,6 +31,17 @@ const useIngredientList = () => {
     [ingredientList]
   )
 
-  return { refrigeratedItems, frozenItems, expiredItems, isLoading }
+  const ingredientNames = useMemo(
+    () => ingredientList.map((item) => item.name),
+    [ingredientList]
+  )
+
+  return {
+    refrigeratedItems,
+    frozenItems,
+    expiredItems,
+    ingredientNames,
+    isLoading,
+  }
 }
 export default useIngredientList

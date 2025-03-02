@@ -8,8 +8,9 @@ const useCreateIngredient = () => {
   const { mutate, isPending, isSuccess } = useMutation({
     mutationKey: ["modifyIngredient"],
     mutationFn: createIngredient,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["ingredientList"] })
+      return data
     },
     onError: () => {
       console.log("재료 정보 생성 실패")

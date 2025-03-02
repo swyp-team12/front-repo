@@ -5,20 +5,29 @@ import Typography from "@src/components/Typography/Typograpy"
 import Svg from "@src/components/Svg/Svg"
 import { MenuButton, Divider } from "./styled"
 import { useFlow } from "@src/utils/StackFlowRegistry"
+import useCreateRecipe from "@src/hooks/useCreateRecipe"
+import useIngredientList from "@src/hooks/useIngredientList"
+import Modal from "@src/components/ModalGroup/Modal"
+import { useState } from "react"
 
 const HomeRecipeMenuCard = () => {
   const { push } = useFlow()
+  const [isOpen, setIsOpen] = useState(false)
+  const { ingredientNames } = useIngredientList()
 
+  const { mutate, isPending, isSuccess } = useCreateRecipe()
   const handleChooseRecipeClick = () => {
     push("RecipeChooseActivity", {})
   }
 
   const handleExistRecipeClick = () => {
-    push("RecipeLoadingActivity", {})
+    if (ingredientNames.length === 0) return
+    mutate(ingredientNames)
   }
 
   const handleNewRecipeClick = () => {
-    push("RecipeLoadingActivity", {})
+    setIsOpen(true)
+    // mutate([])
   }
 
   return (
@@ -51,10 +60,10 @@ const HomeRecipeMenuCard = () => {
             alt="새로운 재료"
           />
           <VStack gap={0}>
-            <Typography variant="label-b" color="gray-900" textAlign="center">
+            <Typography variant="label-b" color="gray-500" textAlign="center">
               새로운 재료와 함께
             </Typography>
-            <Typography variant="label-b" color="gray-900" textAlign="center">
+            <Typography variant="label-b" color="gray-500" textAlign="center">
               추천 받기
             </Typography>
           </VStack>
@@ -79,6 +88,23 @@ const HomeRecipeMenuCard = () => {
           </VStack>
         </MenuButton>
       </HStack>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="서비스 준비중"
+      >
+        <VStack gap={8}>
+          <Typography variant="title" color="primary" textAlign="center">
+            🚧
+          </Typography>
+          <Typography variant="label-b" color="primary" textAlign="center">
+            서비스 준비중입니다.
+          </Typography>
+          <Typography variant="label-b" color="primary" textAlign="center">
+            조금만 기다려주세요!
+          </Typography>
+        </VStack>
+      </Modal>
     </Card>
   )
 }

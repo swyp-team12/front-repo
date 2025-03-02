@@ -5,6 +5,8 @@ import Typography from "@src/components/Typography/Typograpy"
 import IngredientLabel from "@src/components/IngredientLabel/IngredientLabel"
 import Svg from "@src/components/Svg/Svg"
 import styled from "styled-components"
+import { Recipe } from "@src/types/apiTypes"
+import { truncateText } from "@src/utils/commonUtils"
 
 const ScrapButton = styled.button`
   background: none;
@@ -18,52 +20,51 @@ const Container = styled(VStack)`
 `
 
 interface RecipeCardProps {
-  title: string
-  requiredIngredients: string[]
-  missingIngredients: string[]
-  isScrap: boolean
+  recipe: Recipe
   onToggleScrap: () => void
   onClick?: () => void
 }
 
-const RecipeCard = ({
-  title,
-  requiredIngredients,
-  missingIngredients,
-  isScrap,
-  onToggleScrap,
-  onClick,
-}: RecipeCardProps) => {
+const RecipeCard = ({ recipe, onToggleScrap, onClick }: RecipeCardProps) => {
+  const handleScrap = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    onToggleScrap()
+  }
   return (
     <Card onClick={onClick}>
       <Container gap={8}>
         <Typography variant="body-b" color="gray-900">
-          {title}
+          {recipe.recipesName}
         </Typography>
 
         <VStack gap={4}>
           <HStack gap={8} alignItems="center">
             <IngredientLabel label="필요 재료" />
             <Typography variant="label-b" color="gray-500">
-              {requiredIngredients.join(", ")}
+              {truncateText(
+                recipe.recipeIngredients
+                  .map((ingredient) => ingredient.recipeIngredientName)
+                  .join(", "),
+                25
+              )}
             </Typography>
           </HStack>
 
           <HStack gap={8} alignItems="center" justifyContent="space-between">
             <HStack gap={8} alignItems="center">
-              <IngredientLabel label="없는 재료" />
+              <IngredientLabel label="결과 요약" />
               <Typography variant="label-b" color="gray-500">
-                {missingIngredients.join(", ")}
+                {truncateText(recipe.recipeContent, 25)}
               </Typography>
             </HStack>
-            <ScrapButton onClick={onToggleScrap}>
+            <ScrapButton onClick={handleScrap}>
               <Svg
                 src={`/icon/icon_scrap_${
-                  isScrap ? "fill" : "empty_primary"
+                  recipe.isScrap ? "fill" : "empty_primary"
                 }.svg`}
                 width={20}
                 height={20}
-                alt={isScrap ? "스크랩 취소" : "스크랩"}
+                alt={recipe.isScrap ? "스크랩 취소" : "스크랩"}
               />
             </ScrapButton>
           </HStack>

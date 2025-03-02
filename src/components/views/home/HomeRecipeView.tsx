@@ -20,11 +20,12 @@ import {
 import HomeRecipeMenuCard from "./HomeRecipeMenuCard"
 import RecipeList from "@src/components/RecipeList/RecipeList"
 import { mockRecipes } from "@src/mocks/mockApiData"
+import useRecipeList from "@src/hooks/useRecipeList"
 interface HomeRecipeViewProps {}
 
 const HomeRecipeView = ({}: HomeRecipeViewProps) => {
   const { push } = useFlow()
-
+  const { recipeList, isLoading } = useRecipeList()
   const handleRecipeClick = () => {
     push("RecipeActivity", {})
   }
@@ -32,10 +33,10 @@ const HomeRecipeView = ({}: HomeRecipeViewProps) => {
   return (
     <VStack gap={24} pt={24} pl={20} pr={20}>
       <VStack gap={16}>
-        <TitleWithMore
-          title="회원님을 위한 레시피 추천 🧑🏻‍🍳"
-          onClickMore={() => {}}
-        />
+        <Typography variant="body-b" color="primary">
+          {"회원님을 위한 레시피 추천 🧑🏻‍🍳"}
+        </Typography>
+
         <HomeRecipeMenuCard />
       </VStack>
 
@@ -50,7 +51,7 @@ const HomeRecipeView = ({}: HomeRecipeViewProps) => {
             <SearchBar placeholder="이전에 사용한 레시피 재료를 검색해보세요." />
             <Button variant="primary" size="xs" label="검색" />
           </HStack>
-          <RecipeList recipes={mockRecipes} />
+          <RecipeList recipes={recipeList} />
         </VStack>
       </VStack>
     </VStack>

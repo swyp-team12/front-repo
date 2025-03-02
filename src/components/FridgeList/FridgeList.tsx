@@ -16,7 +16,7 @@ interface BaseFridgeListProps {
 interface SelectFridgeListProps extends BaseFridgeListProps {
   type: "select"
   selectedIds: string[]
-  onSelect: (id: string) => void
+  onSelect: (id: string, name: string) => void
 }
 
 interface ViewFridgeListProps extends BaseFridgeListProps {
@@ -46,9 +46,9 @@ const FridgeList = ({
 }: FridgeListProps) => {
   const { push } = useFlow()
 
-  const handleItemClick = (id: string) => {
+  const handleItemClick = (id: string, name: string) => {
     if (type === "select" && "onSelect" in props) {
-      props.onSelect(id)
+      props.onSelect(id, name)
     } else {
       push("IngDetailActivity", {
         ingId: Number(id),
@@ -68,7 +68,7 @@ const FridgeList = ({
               {refrigeratedItems.map((item) => (
                 <VStack key={item.name} alignItems="center" gap={4}>
                   <IconCard
-                    onClick={() => handleItemClick(`${item.ingId}`)}
+                    onClick={() => handleItemClick(`${item.ingId}`, item.name)}
                     selected={
                       type === "select" && "selectedIds" in props
                         ? props.selectedIds.includes(`${item.ingId}`)
@@ -121,7 +121,7 @@ const FridgeList = ({
               {frozenItems.map((item) => (
                 <VStack key={item.name} alignItems="center" gap={4}>
                   <IconCard
-                    onClick={() => handleItemClick(`${item.ingId}`)}
+                    onClick={() => handleItemClick(`${item.ingId}`, item.name)}
                     selected={
                       type === "select" && "selectedIds" in props
                         ? props.selectedIds.includes(`${item.ingId}`)

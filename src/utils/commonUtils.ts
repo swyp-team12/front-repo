@@ -1,3 +1,17 @@
+/**
+ * 긴 텍스트를 지정된 길이로 자르고 말줄임표를 추가하는 함수
+ * @param text 원본 텍스트
+ * @param maxLength 최대 길이 (기본값: 20)
+ * @returns 잘린 텍스트 또는 원본 텍스트
+ */
+export const truncateText = (text: string, maxLength: number = 20): string => {
+  if (!text) return '';
+  
+  return text.length > maxLength 
+    ? `${text.substring(0, maxLength)}...` 
+    : text;
+}
+
 export const calculateDday = (expireDate: string): string => {
   if (!expireDate || expireDate.length !== 8) {
     return "날짜 오류"

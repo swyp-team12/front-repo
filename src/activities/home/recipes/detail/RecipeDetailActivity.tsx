@@ -6,7 +6,6 @@ import Typography from "@src/components/Typography/Typograpy"
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import Svg from "@src/components/Svg/Svg"
 
-import { mockRecipes } from "@src/mocks/mockApiData"
 import NoneHeader from "@src/components/HeaderGroup/NoneHeader"
 import IngredientTag from "@src/components/IngredientTag/IngredientTag"
 import styled from "styled-components"
@@ -14,12 +13,37 @@ import Button from "@src/components/Button/Button"
 import BottomButtonField from "@src/components/BottomButtonField/BottomButtonField"
 import { useState } from "react"
 import Modal from "@src/components/ModalGroup/Modal"
+import useRecipeDetail from "@src/hooks/useRecipeDetail"
+import useScrapRecipe from "@src/hooks/useScrapRecipe"
+
+/**
+ * 레시피 텍스트를 단계별 배열로 변환하는 함수
+ * @param recipeText 레시피 텍스트 (예: "1. 단계1 2. 단계2 3. 단계3")
+ * @returns 단계별 배열 (예: ["단계1", "단계2", "단계3"])
+ */
+export const formatRecipeSteps = (recipeText: string): string[] => {
+  if (!recipeText) return []
+
+  // 숫자와 점으로 시작하는 패턴을 찾아 분리
+  const steps = recipeText
+    .split(/\d+\.\s*/)
+    .filter((step) => step.trim() !== "")
+
+  // 각 단계의 앞뒤 공백 제거
+  return steps.map((step) => step.trim())
+}
 
 const Divider = styled.div`
   width: 100%;
   height: 6px;
   background-color: #ededed;
   margin: 20px 0px;
+`
+const IngredientContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
 `
 
 interface RecipeDetailActivityProps {
@@ -30,137 +54,67 @@ const RecipeDetailActivity: ActivityComponentType<
   RecipeDetailActivityProps
 > = ({ params }) => {
   const { recipesId } = params
-  const recipe =
-    mockRecipes.find((v) => v.recipesId === recipesId) || mockRecipes[0]
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { recipeDetail, isLoading } = useRecipeDetail(recipesId)
 
+  const { mutate } = useScrapRecipe()
+
+  const handleScrap = () => {
+    if (!recipeDetail) return
+    mutate(recipesId, recipeDetail.isScrap)
+  }
+
+  if (!recipeDetail) {
+    return <></>
+  }
   return (
     <NoneHeader>
       <VStack pl={20} pr={20} gap={20}>
         <HStack justifyContent="space-between" mt={20}>
-          <Typography variant="body-b">{recipe.recipesName}</Typography>
-          {recipe.isScrap === "0" ? (
-            <Svg
-              src="/icon/icon_scrap_empty.svg"
-              width={24}
-              height={24}
-              alt="스크랩"
-            />
-          ) : (
-            <Svg
-              src="/icon/icon_scrap_fill.svg"
-              width={24}
-              height={24}
-              alt="스크랩"
-            />
-          )}
+          <Typography variant="body-b">{recipeDetail.recipesName}</Typography>
+          <VStack onClick={handleScrap}>
+            {recipeDetail.isScrap ? (
+              <Svg
+                src="/icon/icon_scrap_fill.svg"
+                width={24}
+                height={24}
+                alt="스크랩"
+              />
+            ) : (
+              <Svg
+                src="/icon/icon_scrap_empty_primary.svg"
+                width={24}
+                height={24}
+                alt="스크랩"
+              />
+            )}
+          </VStack>
         </HStack>
 
         <VStack gap={16}>
-          <Typography variant="label-b">재료</Typography>
-          <HStack gap={8}>
-            {recipe.requiredIngredients.map((v) => (
-              <IngredientTag label={v} />
+          <Typography variant="body-b">재료</Typography>
+          <IngredientContainer>
+            {recipeDetail.recipeIngredients.map((v, index) => (
+              <IngredientTag label={v.recipeIngredientName} key={index} />
             ))}
-          </HStack>
+          </IngredientContainer>
         </VStack>
       </VStack>
 
       <Divider />
 
       <VStack pl={20} pr={20} gap={20}>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 1
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 2
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 3
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
-        <VStack gap={12}>
-          <Typography variant="body-b" color="primary">
-            Step 4
-          </Typography>
-          <Typography variant="label-b">
-            냉장고에 있는 재료를 꺼내 손질합니다.
-          </Typography>
-        </VStack>
+        {formatRecipeSteps(recipeDetail.recipeContent).map((text, index) => (
+          <VStack gap={12} key={index}>
+            <Typography variant="body-b" color="primary">
+              Step {index + 1}
+            </Typography>
+            <Typography variant="label-b">{text}</Typography>
+          </VStack>
+        ))}
       </VStack>
 
-      <BottomButtonField>
+      {/* <BottomButtonField>
         <Button
           variant="primary"
           size="lg"
@@ -169,8 +123,8 @@ const RecipeDetailActivity: ActivityComponentType<
             setIsModalOpen(true)
           }}
         />
-      </BottomButtonField>
-      <Modal
+      </BottomButtonField> */}
+      {/* <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="레시피 사용"
@@ -194,7 +148,7 @@ const RecipeDetailActivity: ActivityComponentType<
             <Button variant="primary" size="sm" label="확인" />
           </HStack>
         </VStack>
-      </Modal>
+      </Modal> */}
     </NoneHeader>
   )
 }

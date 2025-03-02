@@ -38,3 +38,30 @@ export type IngredientDetailResponse = {
   data: Ingredient
   message: string | null
 }
+
+export type Recipe = {
+  recipesId: number
+  userId: number
+  recipesName: string
+  recipeContent: string
+  isDelete: boolean
+  isScrap: boolean
+  scrapTime: string
+  recipeIngredients: {
+    recipeIngredientName: string
+  }[]
+  createAt: string
+  updatedAt: string
+}
+
+export type RecipeListResponse = {
+  status: string
+  data: Recipe[]
+  message: string | null
+}
+
+export type RecipeDetailResponse = {
+  status: string
+  data: Recipe
+  message: string | null
+}

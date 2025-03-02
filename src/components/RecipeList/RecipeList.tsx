@@ -1,14 +1,8 @@
 import VStack from "@src/components/FlexBoxGroup/VStack"
 import RecipeCard from "../RecipeCard/RecipeCard"
 import { useFlow } from "@src/utils/StackFlowRegistry"
-
-interface Recipe {
-  recipesId: number
-  recipesName: string
-  requiredIngredients: string[]
-  missingIngredients: string[]
-  isScrap: "0" | "1"
-}
+import { Recipe } from "@src/types/apiTypes"
+import useScrapRecipe from "@src/hooks/useScrapRecipe"
 
 interface RecipeListProps {
   recipes: Recipe[]
@@ -17,10 +11,16 @@ interface RecipeListProps {
 const RecipeList = ({ recipes }: RecipeListProps) => {
   const { push } = useFlow()
 
+  const { mutate } = useScrapRecipe()
+
   const handleRecipeCardClick = (recipesId: number) => {
     push("RecipeDetailActivity", {
       recipesId,
     })
+  }
+
+  const handleToggleScrap = (recipesId: number, currentScrap: boolean) => {
+    mutate(recipesId, currentScrap)
   }
 
   return (
@@ -28,11 +28,10 @@ const RecipeList = ({ recipes }: RecipeListProps) => {
       {recipes.map((recipe) => (
         <RecipeCard
           key={recipe.recipesId}
-          title={recipe.recipesName}
-          requiredIngredients={recipe.requiredIngredients}
-          missingIngredients={recipe.missingIngredients}
-          isScrap={recipe.isScrap === "1"}
-          onToggleScrap={() => {}}
+          recipe={recipe}
+          onToggleScrap={() =>
+            handleToggleScrap(recipe.recipesId, recipe.isScrap)
+          }
           onClick={() => {
             handleRecipeCardClick(recipe.recipesId)
           }}

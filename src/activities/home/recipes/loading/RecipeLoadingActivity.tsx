@@ -7,6 +7,7 @@ import styled from "styled-components"
 import Spinner from "@src/components/Spinner/Spinner"
 import { useEffect } from "react"
 import { useFlow } from "@src/utils/StackFlowRegistry"
+import { useRecipeStore } from "@src/stores/useStores"
 
 const SpinnerWrapper = styled.div`
   position: fixed;
@@ -16,11 +17,14 @@ const SpinnerWrapper = styled.div`
 
 const RecipeLoadingActivity: ActivityComponentType = () => {
   const { replace } = useFlow()
+  const { isCreatingRecipe } = useRecipeStore()
   useEffect(() => {
-    setTimeout(() => {
-      replace("RecipeDetailActivity", { recipesId: 1 })
-    }, 3000)
-  }, [])
+    if (!isCreatingRecipe) {
+      setTimeout(() => {
+        replace("RecipeActivity", {})
+      }, 2000)
+    }
+  }, [isCreatingRecipe])
   return (
     <AppScreen>
       <VStack

@@ -18,12 +18,10 @@ import { useState } from "react"
 import FilterBottomSheet from "@src/components/BottomSheet/FilterBottomSheet"
 import RecipeList from "@src/components/RecipeList/RecipeList"
 import { mockRecipes } from "@src/mocks/mockApiData"
-
-const mockRecentSearches = ["치즈", "양배추", "양배추"]
-
+import useRecipeList from "@src/hooks/useRecipeList"
 const RecipeActivity: ActivityComponentType = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
-
+  const { recipeList, isLoading } = useRecipeList()
   const handleDeleteSearch = (search: string) => {
     // 검색어 삭제 로직
     console.log("delete", search)
@@ -70,7 +68,7 @@ const RecipeActivity: ActivityComponentType = () => {
               </Typography>
             </HStack>
           </HStack> */}
-          <RecipeList recipes={mockRecipes} />
+          <RecipeList recipes={recipeList} />
         </VStack>
       </VStack>
       <FilterBottomSheet isOpen={isFilterOpen} onClose={handleFilterClose} />
