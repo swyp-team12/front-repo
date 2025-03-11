@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 const useCreateRecipe = () => {
   const { push } = useFlow()
   const queryClient = useQueryClient()
-  const { setCreatingRecipe } = useRecipeStore()
+  const { setCreatingRecipe, setIsNoRecipe } = useRecipeStore()
 
   const { mutate, isPending, isSuccess } = useMutation({
     mutationKey: ["createRecipe"],
@@ -18,6 +18,10 @@ const useCreateRecipe = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["recipeList"] })
+      if (data.data.length === 0) {
+        console.log("레시피 검색 결과가 없습니다.")
+        setIsNoRecipe(true)
+      }
       setCreatingRecipe(false)
     },
     onError: () => {

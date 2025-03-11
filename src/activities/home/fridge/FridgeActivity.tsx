@@ -6,7 +6,7 @@ import Typography from "@src/components/Typography/Typograpy"
 import SearchTag from "@src/components/SearchTag/SearchTag"
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import Svg from "@src/components/Svg/Svg"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import FilterBottomSheet from "@src/components/BottomSheet/FilterBottomSheet"
 import useIngredientList from "@src/hooks/useIngredientList"
 
@@ -15,6 +15,7 @@ const mockRecentSearches = ["치즈", "우유", "계란"]
 const FridgeActivity: ActivityComponentType = () => {
   const { refrigeratedItems, frozenItems, isLoading } = useIngredientList()
 
+  const [searchValue, setSearchValue] = useState("")
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const handleDeleteSearch = (search: string) => {
@@ -30,8 +31,24 @@ const FridgeActivity: ActivityComponentType = () => {
     setIsFilterOpen(false)
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value)
+  }
+
+  const filteredRefrigeratedItems = useMemo(() => {
+    return refrigeratedItems.filter((item) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  }, [searchValue, refrigeratedItems])
+
+  const filteredFrozenItems = useMemo(() => {
+    return frozenItems.filter((item) =>
+      item.name.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  }, [searchValue, frozenItems])
+
   return (
-    <SearchHeader>
+    <SearchHeader value={searchValue} onSearch={handleSearch}>
       <VStack pl={20} pr={20} gap={16}>
         <VStack pt={16} gap={12}>
           {/* <Typography variant="body-b" color="primary">
@@ -64,8 +81,8 @@ const FridgeActivity: ActivityComponentType = () => {
             </HStack>
           </HStack> */}
           <FridgeList
-            refrigeratedItems={refrigeratedItems}
-            frozenItems={frozenItems}
+            refrigeratedItems={filteredRefrigeratedItems}
+            frozenItems={filteredFrozenItems}
           />
         </VStack>
       </VStack>

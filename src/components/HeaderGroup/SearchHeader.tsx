@@ -6,13 +6,21 @@ import { ContentContainer } from "./styled"
 interface SearchHeaderProps {
   children: React.ReactNode
   hasNavigation?: boolean
+  value?: string
+  onSearch?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const SearchHeader = ({ children }: SearchHeaderProps) => {
+const SearchHeader = ({ children, value, onSearch }: SearchHeaderProps) => {
   return (
     <AppScreen
       appBar={{
-        title: <SearchBar placeholder="제품을 검색해보세요." />,
+        title: (
+          <SearchBar
+            placeholder="제품을 검색해보세요."
+            value={value}
+            onSearch={onSearch}
+          />
+        ),
         renderLeft: undefined,
         border: false,
         height: "48px",

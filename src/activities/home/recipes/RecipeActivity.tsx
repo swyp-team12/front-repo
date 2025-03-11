@@ -14,7 +14,7 @@ import SearchTag from "@src/components/SearchTag/SearchTag"
 import HStack from "@src/components/FlexBoxGroup/HStack"
 import Svg from "@src/components/Svg/Svg"
 import styled from "styled-components"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import FilterBottomSheet from "@src/components/BottomSheet/FilterBottomSheet"
 import RecipeList from "@src/components/RecipeList/RecipeList"
 import { mockRecipes } from "@src/mocks/mockApiData"
@@ -22,21 +22,32 @@ import useRecipeList from "@src/hooks/useRecipeList"
 const RecipeActivity: ActivityComponentType = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const { recipeList, isLoading } = useRecipeList()
-  const handleDeleteSearch = (search: string) => {
-    // 검색어 삭제 로직
-    console.log("delete", search)
-  }
+  const [searchValue, setSearchValue] = useState("")
+  // const handleDeleteSearch = (search: string) => {
+  //   // 검색어 삭제 로직
+  //   console.log("delete", search)
+  // }
 
-  const handleFilterClick = () => {
-    setIsFilterOpen(true)
-  }
+  // const handleFilterClick = () => {
+  //   setIsFilterOpen(true)
+  // }
 
   const handleFilterClose = () => {
     setIsFilterOpen(false)
   }
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value)
+  }
+
+  const filteredRecipeList = useMemo(() => {
+    return recipeList.filter((recipe) =>
+      recipe.recipesName.toLowerCase().includes(searchValue.toLowerCase())
+    )
+  }, [searchValue, recipeList])
+
   return (
-    <SearchHeader>
+    <SearchHeader value={searchValue} onSearch={handleSearch}>
       <VStack pl={20} pr={20} gap={16}>
         <VStack pt={16} gap={12}>
           {/* <Typography variant="body-b" color="primary">
@@ -68,7 +79,7 @@ const RecipeActivity: ActivityComponentType = () => {
               </Typography>
             </HStack>
           </HStack> */}
-          <RecipeList recipes={recipeList} />
+          <RecipeList recipes={filteredRecipeList} />
         </VStack>
       </VStack>
       <FilterBottomSheet isOpen={isFilterOpen} onClose={handleFilterClose} />
