@@ -10,6 +10,7 @@ interface TitleHeaderProps {
 const TitleHeader = ({ children, title }: TitleHeaderProps) => {
   return (
     <AppScreen
+    
       appBar={{
         title: title,
         height: "48px",

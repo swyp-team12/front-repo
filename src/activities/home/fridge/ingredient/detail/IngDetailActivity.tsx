@@ -123,23 +123,23 @@ const IngDetailActivity: ActivityComponentType<IngDetailActivityProps> = ({
             </MemoContainer>
           </VStack>
         </VStack>
-        <BottomButtonField>
-          <HStack gap={12} pr={20} pl={20}>
-            <Button
-              size="lg"
-              variant="secondary"
-              label="재료 삭제하기"
-              onClick={handleDelete}
-            />
-            <Button
-              size="lg"
-              variant="primary"
-              label="정보 수정하기"
-              onClick={handleModify}
-            />
-          </HStack>
-        </BottomButtonField>
       </VStack>
+      <BottomButtonField>
+        <HStack gap={12} pr={20} pl={20}>
+          <Button
+            size="lg"
+            variant="secondary"
+            label="재료 삭제하기"
+            onClick={handleDelete}
+          />
+          <Button
+            size="lg"
+            variant="primary"
+            label="정보 수정하기"
+            onClick={handleModify}
+          />
+        </HStack>
+      </BottomButtonField>
     </TitleHeader>
   )
 }

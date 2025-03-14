@@ -25,7 +25,7 @@ const IngExpiredActivity: ActivityComponentType<
   const { expiredItems } = useIngredientList()
   return (
     <TitleHeader title="소비기한 임박 목록">
-      <VStack p="20px">
+      <VStack p="20px" flexGrow={1}>
         <FridgeList
           refrigeratedItems={expiredItems.filter(
             (item) => item.storageType === "냉장"
@@ -35,6 +35,12 @@ const IngExpiredActivity: ActivityComponentType<
           )}
         />
       </VStack>
+
+      <BottomButtonField>
+        <VStack pr={20} pl={20}>
+          <Button variant="primary" size="lg" label="재료 사용하러 가기" />
+        </VStack>
+      </BottomButtonField>
     </TitleHeader>
   )
 }

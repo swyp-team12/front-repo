@@ -7,7 +7,7 @@ export const FixedBottomContainer = styled.div`
   background-color: white;
   z-index: 10;
   margin-bottom: -16px;
-  box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.03);
 `
 
 // import styled from "styled-components"

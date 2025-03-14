@@ -32,22 +32,24 @@ const ScrapActivity: ActivityComponentType = () => {
         />
 
         <RecipeList recipes={filteredRecipeList} />
-        <VStack alignItems="center" gap={16} pt={16} pb={16}>
-          <Svg
-            src="/icon/icon_scrap_fill.svg"
-            width={48}
-            height={48}
-            alt="빈 박스"
-          />
-          <VStack gap={2} alignItems="center">
-            <Typography variant="body-r" color="primary">
-              다양한 레시피를 만들고
-            </Typography>
-            <Typography variant="body-r" color="primary">
-              스크랩하세요!
-            </Typography>
+        {filteredRecipeList.length === 0 && (
+          <VStack alignItems="center" gap={16} pt={16} pb={16}>
+            <Svg
+              src="/icon/icon_scrap_fill.svg"
+              width={48}
+              height={48}
+              alt="빈 박스"
+            />
+            <VStack gap={2} alignItems="center">
+              <Typography variant="body-r" color="primary">
+                다양한 레시피를 만들고
+              </Typography>
+              <Typography variant="body-r" color="primary">
+                스크랩하세요!
+              </Typography>
+            </VStack>
           </VStack>
-        </VStack>
+        )}
       </VStack>
     </IconWithSettingHeader>
   )

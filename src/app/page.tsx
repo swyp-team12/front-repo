@@ -36,7 +36,7 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log("document.cookie", document.cookie)
+    // console.log("document.cookie", document.cookie)
 
     const accessToken = document.cookie
       .split("; ")

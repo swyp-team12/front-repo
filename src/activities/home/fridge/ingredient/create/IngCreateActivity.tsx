@@ -143,7 +143,7 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
 
   return (
     <TitleHeader title="재료 정보 생성">
-      <VStack pt={20} pr={20} pl={20}>
+      <VStack pt={20} pr={20} pl={20} flexGrow={1}>
         <VStack gap={20}>
           <Typography variant="head-b">제품을 등록해볼까요?</Typography>
           {/* <VStack
@@ -310,7 +310,9 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
             onChange={(e) => setUserMemo(e.target.value)}
           />
         </VStack>
-        <BottomButtonField>
+      </VStack>
+      <BottomButtonField>
+        <VStack pr={20} pl={20}>
           <Button
             size="lg"
             variant="primary"
@@ -318,8 +320,8 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
             onClick={handleSubmit}
             label="저장하기"
           />
-        </BottomButtonField>
-      </VStack>
+        </VStack>
+      </BottomButtonField>
     </TitleHeader>
   )
 }
