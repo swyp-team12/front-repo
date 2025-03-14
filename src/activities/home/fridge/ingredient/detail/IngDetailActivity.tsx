@@ -53,7 +53,28 @@ const IngDetailActivity: ActivityComponentType<IngDetailActivityProps> = ({
     <TitleHeader title="재료 상세">
       <VStack flexGrow={1}>
         <VStack gap={14} width="100%" height="30vh" bg="gray-100">
-          <></>
+          {ingredientDetail.ingImage ? (
+            <img
+              src={ingredientDetail.ingImage}
+              alt={ingredientDetail.name}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <VStack
+              width="100%"
+              height="100%"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Typography variant="body-r" color="gray-500">
+                이미지가 없습니다
+              </Typography>
+            </VStack>
+          )}
         </VStack>
         <VStack p="20px" gap={14}>
           <VStack gap={2}>

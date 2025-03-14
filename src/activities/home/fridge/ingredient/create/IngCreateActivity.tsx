@@ -59,7 +59,7 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
   const [storageType, setStorageType] = useState("")
   const [category, setCategory] = useState("")
   const [userMemo, setUserMemo] = useState("")
-  const [images, setImages] = useState<File[]>([])
+  const [images, setImages] = useState<string[]>([])
   const [imagePreview, setImagePreview] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -87,23 +87,18 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newFiles = Array.from(e.target.files)
-      if (images.length + newFiles.length > 1) {
-        alert("최대 1개의 이미지만 업로드할 수 있습니다.")
-        return
-      }
-
-      setImages((prev) => [...prev, ...newFiles])
-
-      newFiles.forEach((file) => {
+      const file = e.target.files[0]
+      if (file) {
         const reader = new FileReader()
         reader.onload = (e) => {
           if (e.target?.result) {
-            setImagePreview((prev) => [...prev, e.target!.result as string])
+            const base64String = e.target.result as string
+            setImagePreview([base64String])
+            setImages([base64String])
           }
         }
         reader.readAsDataURL(file)
-      })
+      }
     }
   }
 
@@ -125,8 +120,10 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
       storageType,
       category,
       userMemo,
-      ingImage: images[0],
+      ingImage: images.length > 0 ? images[0] : '',
     }
+
+    console.log(images)
 
     mutate(submitData)
   }
@@ -146,7 +143,7 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
       <VStack pt={20} pr={20} pl={20} flexGrow={1}>
         <VStack gap={20}>
           <Typography variant="head-b">제품을 등록해볼까요?</Typography>
-          {/* <VStack
+          <VStack
             gap={4}
             alignItems="center"
             justifyContent="center"
@@ -162,7 +159,6 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
               ref={fileInputRef}
               style={{ display: "none" }}
               accept="image/*"
-              multiple
               onChange={handleImageUpload}
             />
             <Svg
@@ -172,7 +168,7 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
               alt="camera icon"
             />
             <Typography color="gray-600" variant="text-m">
-              {images.length}/5(선택)
+              {images.length}/1(선택)
             </Typography>
           </VStack>
 
@@ -222,7 +218,7 @@ const IngCreateActivity: ActivityComponentType<IngCreateActivityProps> = () => {
                 </div>
               ))}
             </HStack>
-          )} */}
+          )}
         </VStack>
         <VStack mt={38} gap={16}>
           <FormInput

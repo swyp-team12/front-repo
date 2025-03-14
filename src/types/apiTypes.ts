@@ -20,7 +20,7 @@ export type IngredientCreateRequest = {
   storageType: string
   category: string
   userMemo: string
-  ingImage: File
+  ingImage: string
 }
 
 export type IngredientModifyRequest = IngredientCreateRequest & {

@@ -27,7 +27,7 @@ interface FlexBoxStyledProps {
   $flexGrow?: number
   overflowX?: string
   overflowY?: string
-  boxShadow?: string
+  $boxShadow?: string
   onClick?: () => void
 }
 
@@ -68,7 +68,7 @@ export const FlexBoxContainer = styled.div<FlexBoxStyledProps>`
   flex-grow: ${({ $flexGrow }) => $flexGrow};
   overflow-x: ${({ overflowX }) => overflowX};
   overflow-y: ${({ overflowY }) => overflowY};
-  box-shadow: ${({ boxShadow }) => boxShadow};
+  box-shadow: ${({ $boxShadow }) => $boxShadow};
   cursor: ${({ onClick }) => (onClick ? "pointer" : "auto")};
 `
 

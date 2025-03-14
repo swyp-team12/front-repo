@@ -13,6 +13,7 @@ import { useFlow } from "@src/utils/StackFlowRegistry"
 import FormCalendar from "@src/components/FormGroup/FormCalendar"
 import useModifyIngredient from "@src/hooks/useModifyIngredient"
 import useIngredientDetail from "@src/hooks/useIngredientDetail"
+import Typography from "@src/components/Typography/Typograpy"
 
 interface IngModifyActivityProps {
   ingId: number
@@ -70,10 +71,8 @@ const IngModifyActivity: ActivityComponentType<IngModifyActivityProps> = ({
   )
   const [category, setCategory] = useState(ingredientDetail?.category || "")
   const [userMemo, setUserMemo] = useState(ingredientDetail?.userMemo || "")
-  const [images, setImages] = useState<File[]>([])
-  const [imagePreview, setImagePreview] = useState<string[]>(
-    ingredientDetail?.ingImage ? [ingredientDetail?.ingImage] : []
-  )
+  const [images, setImages] = useState<string[]>([])
+  const [imagePreview, setImagePreview] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // 폼 유효성 검사
@@ -87,25 +86,36 @@ const IngModifyActivity: ActivityComponentType<IngModifyActivityProps> = ({
     )
   }, [name, expiryDate, storageType, category, ingNum])
 
+  // 초기 데이터 로드 시 이미지 설정
+  useEffect(() => {
+    if (ingredientDetail) {
+      // 기존 필드들 설정...
+
+      // 이미지가 있는 경우 base64 또는 URL 그대로 설정
+      if (ingredientDetail.ingImage) {
+        setImages([ingredientDetail.ingImage])
+        setImagePreview([ingredientDetail.ingImage])
+      }
+    }
+  }, [ingredientDetail])
+
+  // 이미지 업로드 핸들러 수정
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newFiles = Array.from(e.target.files)
-      if (images.length + newFiles.length > 1) {
-        alert("최대 1개의 이미지만 업로드할 수 있습니다.")
-        return
-      }
-
-      setImages((prev) => [...prev, ...newFiles])
-
-      newFiles.forEach((file) => {
+      const file = e.target.files[0]
+      if (file) {
+        // 새 이미지 미리보기 생성 및 base64로 변환
         const reader = new FileReader()
         reader.onload = (e) => {
           if (e.target?.result) {
-            setImagePreview((prev) => [...prev, e.target!.result as string])
+            const base64String = e.target.result as string
+            // 미리보기와 저장용 이미지를 모두 base64 문자열로 설정
+            setImagePreview([base64String])
+            setImages([base64String])
           }
         }
         reader.readAsDataURL(file)
-      })
+      }
     }
   }
 
@@ -132,7 +142,7 @@ const IngModifyActivity: ActivityComponentType<IngModifyActivityProps> = ({
       storageType,
       category,
       userMemo,
-      ingImage: images[0],
+      ingImage: images.length > 0 ? images[0] : "",
     }
 
     mutate(submitData)
@@ -155,78 +165,82 @@ const IngModifyActivity: ActivityComponentType<IngModifyActivityProps> = ({
             accept="image/*"
             onChange={handleImageUpload}
           />
-          {/* 이미지 업로드 영역 (필요시 주석 해제)
           <VStack
+            gap={4}
             alignItems="center"
             justifyContent="center"
-            width="100%"
-            height="200px"
-            border="1px dashed #ccc"
-            borderRadius="8px"
+            width="100px"
+            height="100px"
+            borderRadius={8}
+            boxShadow="0px 4px 12px 0px rgba(0, 0, 0, 0.08)"
             onClick={handleImageClick}
-            style={{ cursor: "pointer" }}
+            // style={{ cursor: "pointer" }}
           >
-            {imagePreview.length === 0 ? (
-              <VStack alignItems="center" gap={8}>
-                <Svg
-                  width={24}
-                  height={24}
-                  src="/icon/icon_camera.svg"
-                  alt="camera"
-                />
-                <Typography variant="body-r" color="gray-500">
-                  이미지를 업로드하세요 (선택사항)
-                </Typography>
-              </VStack>
-            ) : (
-              <HStack gap={8} flexWrap="wrap">
-                {imagePreview.map((img, index) => (
-                  <div
-                    key={index}
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
+            <Svg
+              width={20}
+              height={20}
+              src="/icon/icon_camera.svg"
+              alt="camera icon"
+            />
+            <Typography color="gray-600" variant="text-m">
+              {images.length}/1(선택)
+            </Typography>
+          </VStack>
+
+          {imagePreview.length > 0 && (
+            <HStack gap={8} mt={10}>
+              {imagePreview.map((img, index) => (
+                <div
+                  key={index}
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "4px",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <img
+                    src={img}
+                    alt={`업로드 이미지 ${index + 1}`}
                     style={{
                       width: "100%",
-                      height: "200px",
-                      borderRadius: "4px",
-                      overflow: "hidden",
-                      position: "relative",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "2px",
+                      right: "2px",
+                      background: "rgba(0,0,0,0.5)",
+                      borderRadius: "50%",
+                      width: "18px",
+                      height: "18px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleRemoveImage(index)
                     }}
                   >
-                    <img
-                      src={img}
-                      alt={`업로드 이미지 ${index + 1}`}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "2px",
-                        right: "2px",
-                        background: "rgba(0,0,0,0.5)",
-                        borderRadius: "50%",
-                        width: "18px",
-                        height: "18px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer",
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        handleRemoveImage(index)
-                      }}
-                    >
-                      <span style={{ color: "white", fontSize: "12px" }}>×</span>
-                    </div>
+                    <span style={{ color: "white", fontSize: "12px" }}>×</span>
                   </div>
-                ))}
-              </HStack>
-            )}
-          </VStack>
-          */}
+                </div>
+              ))}
+            </HStack>
+          )}
         </VStack>
         <VStack mt={38} gap={16}>
           <FormInput
